@@ -1,0 +1,220 @@
+﻿@using TodoDashboard.Pages;
+@using TodoDashboard.Infrastructure;
+@using TodoDashboard.Entities.V1;
+
+@{
+    ViewBag.Title = "Sign In";
+    Layout = null;
+    string userName = string.Empty;
+    string password = string.Empty;
+
+    if (Request.Cookies["AdminUserLogin"] != null)
+    {
+        userName = Convert.ToString(Request.Cookies["AdminUserLogin"].Values["UserName"]);
+        password = Convert.ToString(Request.Cookies["AdminUserLogin"].Values["Password"]);
+    }
+}
+
+<!doctype html>
+<html lang="en">
+
+
+<!-- Mirrored from www.wrraptheme.com/templates/lucid/hr/html/light/page-login.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 25 Feb 2020 06:21:05 GMT -->
+<head>
+    <title>Sign In | MKTM Drink Database</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="description" content="Lucid Bootstrap 4x Admin Template">
+    <meta name="author" content="WrapTheme, design by: ThemeMakker.com">
+
+    <link rel="icon" href="~/favicon.ico" type="image/x-icon">
+    <!-- VENDOR CSS -->
+    <link rel="stylesheet" href="~/assets/vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/assets/vendor/font-awesome/css/font-awesome.min.css">
+
+    <!-- MAIN CSS -->
+    <link rel="stylesheet" href="~/assets/css/main.css">
+    <link rel="stylesheet" href="~/assets/css/color_skins.css">
+
+
+    @*<link rel="stylesheet" href="~/assets/validation/css/components-md.min.css" />*@
+
+    <script src="~/assets/validation/js/jquery.min.js"></script>
+    <script src="~/assets/validation/js/bootstrap.min.js"></script>
+    <script src="~/assets/validation/js/jquery.blockui.min.js"></script>
+
+    <style>
+    .has-error .checkbox, .has-error .checkbox-inline, .has-error .control-label, .has-error .form-control-feedback, .has-error .help-block, .has-error .radio, .has-error .radio-inline, .has-error.checkbox label, .has-error.checkbox-inline label, .has-error.radio label, .has-error.radio-inline label {
+        color: #e73d4a
+    }
+
+    .has-error .form-control {
+        border-color: #e73d4a;
+        -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+        box-shadow: inset 0 1px 1px rgba(0,0,0,.075)
+    }
+
+        .has-error .form-control:focus {
+            border-color: #d71b29;
+            -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 6px #f2989f;
+            box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 6px #f2989f
+        }
+
+    .has-error .input-group-addon {
+        color: #e73d4a;
+        border-color: #e73d4a;
+        background-color: #fbe1e3
+    }
+
+  </style>
+
+</head>
+
+<body class="theme-orange">
+    <!-- WRAPPER -->
+    <div id="wrapper">
+        <div class="vertical-align-wrap">
+            <div class="vertical-align-middle auth-main">
+                <div class="auth-box">
+                    <div class="top">
+
+                    </div>
+                    <div class="card">
+                        <div class="header">
+                            <h3>MKTM Drink Database</h3>
+                            <p class="lead">Login to your account</p>
+                        </div>
+                        <div class="body">
+                            <h5 style="text-align:center;color:red;" id="wrgMsg">Wrong Email and Password combination !</h5>
+                            <h5 style="text-align:center;color:red;" id="inactMsg">You are currently In-Active !</h5>
+                            <form class="form-auth-small" method="post" action="" id="frmLogin">
+                                <div class="form-group">
+                                    <label for="signin-email" class="control-label sr-only">Email</label>
+                                    <input type="email" class="form-control" id="Email" name="Email" placeholder="Email">
+                                </div>
+                                <div class="form-group">
+                                    <label for="signin-password" class="control-label sr-only">Password</label>
+                                    <input type="password" class="form-control" id="Password" name="Password" placeholder="Password">
+                                </div>
+                                <input type="submit" id="signin" class="btn btn-primary btn-lg btn-block" value="Sign In">
+                                <button class="btn btn-primary btn-lg btn-block loading" type="button" disabled style="display:none;">
+                                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                    Verifying...
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END WRAPPER -->
+
+    <script>
+        jQuery(document).ready(function () {
+            $("#wrgMsg").hide();
+            $("#inactMsg").hide();
+            FormValidation.init();
+        });
+
+        var FormValidation = function () {
+
+            // basic validation
+            var handleValidation1 = function () {
+
+                var form1 = $('#frmLogin');
+                var error1 = $('.alert-danger', form1);
+                //var success1 = $('.alert-success', form1);
+
+                form1.validate({
+                    errorElement: 'span', //default input error message container
+                    errorClass: 'help-block help-block-error', // default input error message class
+                    focusInvalid: false, // do not focus the last invalid input
+                    ignore: "",  // validate all fields including form hidden input
+                    rules: {
+                        Email: {
+                            required: true,
+                            email: true
+                        },
+                        Password: {
+                            required: true
+                        }
+                    },
+
+                    invalidHandler: function (event, validator) { //display error alert on form submit
+                        //success1.hide();
+                        error1.show();
+                        App.scrollTo(error1, -200);
+                    },
+
+                    errorPlacement: function (error, element) { // render error placement for each input type
+                        var cont = $(element).parent('.input-group');
+                        if (cont.size() > 0) {
+                            cont.after(error);
+                        } else {
+                            element.after(error);
+                        }
+                    },
+
+                    highlight: function (element) { // hightlight error inputs
+                        $(element)
+                            .closest('.form-group').addClass('has-error'); // set error class to the control group
+                    },
+
+                    unhighlight: function (element) { // revert the change done by hightlight
+                        $(element)
+                            .closest('.form-group').removeClass('has-error'); // set error class to the control group
+                    },
+
+                    success: function (label) {
+                        label
+                            .closest('.form-group').removeClass('has-error'); // set success class to the control group
+                    },
+
+                    submitHandler: function (form) {
+                        window.location.href = '@Url.Action(Actions.Index,Controllers.Home)';
+                    }
+                });
+            }
+
+            return {
+                //main function to initiate the module
+                init: function () {
+                    handleValidation1();
+                }
+            };
+        }();
+    </script>
+
+    <script src="~/assets/validation/js/jquery-ui.min.js"></script>
+    <script src="~/assets/validation/js/datatable.js"></script>
+    <script src="~/assets/validation/js/datatables.min.js"></script>
+    <script src="~/assets/validation/js/datatables.bootstrap.js"></script>
+    <script src="~/assets/validation/js/select2.full.min.js"></script>
+    <script src="~/assets/validation/js/app.min.js"></script>
+    <script src="~/assets/validation/js/ui-modals.min.js"></script>
+    <script src="~/assets/validation/js/table-datatables-buttons.min.js"></script>
+    <script src="~/assets/validation/js/components-bootstrap-switch.min.js"></script>
+    <script src="~/assets/validation/js/components-select2.min.js"></script>
+    <script src="~/assets/validation/js/moment.min.js"></script>
+    <script src="~/assets/validation/js/moment-with-locales.min.js"></script>
+    <script src="~/assets/validation/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="~/assets/validation/js/bootstrap-datepicker.min.js"></script>
+    <script src="~/assets/validation/js/jquery.validate.min.js"></script>
+    <script src="~/assets/validation/js/additional-methods.min.js"></script>
+    <script src="~/assets/validation/js/toastr.min.js"></script>
+    <script src="~/assets/validation/js/ui-toastr.min.js"></script>
+    <script src="~/assets/validation/js/layout.min.js"></script>
+    <script src="~/assets/validation/js/demo.min.js"></script>
+    <script src="~/assets/validation/js/quick-sidebar.min.js"></script>
+    <script src="~/assets/validation/js/quick-nav.min.js"></script>
+    <script src="~/assets/validation/js/common.js"></script>
+
+</body>
+<!-- Mirrored from www.wrraptheme.com/templates/lucid/hr/html/light/page-login.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 25 Feb 2020 06:21:05 GMT -->
+</html>
+
+
+
+

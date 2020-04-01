@@ -1,0 +1,162 @@
+﻿@using TodoDashboard.Common;
+@using TodoDashboard.Pages;
+@using System.Web.Optimization;
+@using TodoDashboard.Infrastructure;
+
+@{
+    /**/
+
+    var curController = Convert.ToString(ViewContext.RouteData.Values["Controller"]);
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>MKTM Drink Database | @ViewBag.Title  </title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+
+    <link rel="icon" href="~/favicon.ico" type="image/x-icon">
+    <!-- VENDOR CSS -->
+    <link rel="stylesheet" href="~/assets/vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/assets/vendor/font-awesome/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="~/assets/vendor/bootstrap-datepicker/css/bootstrap-datepicker3.min.css">
+    <link rel="stylesheet" href="~/assets/vendor/bootstrap-multiselect/bootstrap-multiselect.css">
+    <link rel="stylesheet" href="~/assets/vendor/summernote/dist/summernote.css" />
+    <link rel="stylesheet" href="~/assets/vendor/dropify/css/dropify.min.css">
+    <link rel="stylesheet" href="~/assets/vendor/chartist/css/chartist.min.css">
+    <link rel="stylesheet" href="~/assets/vendor/sweetalert/sweetalert.css" />
+    <link rel="stylesheet" href="~/assets/vendor/sweetalert/sweetalert.css" />
+    <link rel="stylesheet" href="~/Styles/datatables.min.css" />
+    <link rel="stylesheet" href="~/Styles/datatables.bootstrap.css" />
+    @*<link rel="stylesheet" href="~/assets/vendor/jquery-datatable/dataTables.bootstrap4.min.css">*@
+    <link rel="stylesheet" href="~/assets/vendor/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css">
+    <link rel="stylesheet" href="~/assets/vendor/chartist-plugin-tooltip/chartist-plugin-tooltip.css">
+    <link rel="stylesheet" href="~/assets/vendor/toastr/toastr.min.css">
+    <link rel="stylesheet" href="~/assets/vendor/select2/select2.css" />
+
+    <!-- MAIN CSS -->
+    <link rel="stylesheet" href="~/assets/css/main.css">
+    <link rel="stylesheet" href="~/assets/css/color_skins.css">
+
+    <style>
+        .or_logo {
+            width: 149px !important;
+        }
+
+        @@media only screen and (max-width: 992px) {
+
+            .mobile_logo {
+                width: 80px !important;
+            }
+        }
+    </style>
+
+    @*<link rel="stylesheet" href="~/assets/validation/css/components-md.min.css" />*@
+
+
+    <script src="~/assets/validation/js/jquery.min.js"></script>
+    <script src="~/assets/validation/js/bootstrap.min.js"></script>
+    <script src="~/assets/validation/js/jquery.blockui.min.js"></script>
+</head>
+<body class="theme-orange">
+    <!-- Page Loader -->
+    <div class="page-loader-wrapper">
+        <div class="loader">
+            @*<div class="m-t-30"><img src="~/assets/images/logo-white.png" width="48" height="48" alt="Lucid"></div>*@
+            <h3>Please wait...</h3>
+        </div>
+    </div>
+    <!-- Overlay For Sidebars -->
+
+    <div id="wrapper">
+        <nav class="navbar navbar-fixed-top">
+            <div class="container-fluid">
+                <div class="navbar-btn">
+                    <button type="button" class="btn-toggle-offcanvas"><i class="lnr lnr-menu fa fa-bars"></i></button>
+                </div>
+
+                <div class="navbar-brand">
+                    <a href="@Url.Action(Actions.Index,Controllers.Home,new { Area = ""})"><h5>MKTM Drink Database</h5></a>
+                    @*<img src="~/assets/images/tl.png" alt="Lucid Logo" class="img-responsive logo or_logo mobile_logo">*@
+                </div>
+
+                <div class="navbar-right">
+
+                    <div id="navbar-menu">
+                        <ul class="nav navbar-nav">
+                            <li><a title="Change Password" href="@Url.Action(Actions.ChangePassword,Controllers.Profile)" class="icon-menu"><i class="icon-settings"></i></a></li>
+                            <li><a title="Log Out" href="@Url.Action(Actions.Logout,Controllers.Authentication)" class="icon-menu"><i class="icon-login"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <div id="left-sidebar" class="sidebar">
+            <div class="sidebar-scroll">
+                <div class="user-account">
+                    <div class="dropdown">
+                        <span>
+                            Welcome, <strong>Ruilin Zhang</strong>
+                        </span>
+                        <a href="javascript:void(0);" class="user-name"><strong>Admin</strong></a>
+                    </div>
+                    <hr>
+                </div>
+
+                <!-- Left menu -->
+                <div class="tab-content p-l-0 p-r-0">
+                    <div class="tab-pane animated fadeIn active" id="hr_menu">
+                        <nav class="sidebar-nav">
+                            @Html.Partial("_LeftMenu")
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="main-content">
+            <div class="container-fluid">
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+
+    <!-- Javascript -->
+    @RenderSection("dashboardscripts", required: false)
+    <script src="~/assets/bundles/vendorscripts.bundle.js"></script>
+    <script src="~/assets/bundles/mainscripts.bundle.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            setSelectedMenu();
+        });
+
+        function setSelectedMenu() {
+            $(".main-menu").find("li.active").each(function () {
+                $(this).removeClass("active");
+            });
+
+            switch ('@curController') {
+                case '@Controllers.Home':
+                    setActiveLink($('#dashboard').attr('id'));
+                    break;
+                case '@Controllers.Users':
+                    setActiveLink($('#clients').attr('id'));
+                    break;
+            }
+        }
+
+        function setActiveLink(menuId) {
+            $(".items").find("a[id='" + menuId + "']").parent("li").addClass("active");
+            $(".items").find("a[id='" + menuId + "']").parent("li").append("<span class='selected'></span>");
+        };
+    </script>
+    @RenderSection("scripts", required: false)
+    @Html.Raw(ViewBag.openPopup)
+</body>
+</html>

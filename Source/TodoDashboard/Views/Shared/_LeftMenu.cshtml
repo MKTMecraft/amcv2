@@ -1,0 +1,18 @@
+﻿@using TodoDashboard.Common;
+@using TodoDashboard.Pages;
+
+    <ul class="main-menu metismenu">
+        <li class="items"><a href="@Url.Action(Actions.Index,Controllers.Home,new { Area=""})" id="dashboard"><i class="icon-speedometer"></i><span>Home</span></a></li>
+        <li class="items"><a href="@Url.Action(Actions.Index,Controllers.Users,new { Area=""})" id="clients"><i class="icon-users"></i><span>Users</span></a></li>
+        @*@if (ProjectSession.AdminRoleID == 1)
+        {
+            <li class="items"><a href="@Url.Action(Actions.Index,Controllers.Teams,new { Area=""})" id="teams"><i class="icon-users" id="teams"></i><span>Teams</span></a></li>
+        }
+        else
+        {
+            <li class="items"><a href="@Url.Action(Actions.Manage, Controllers.Teams, new { ri = ConvertTo.Base64Encode(ProjectSession.TempId.ToString())})" id="teams"><i class="icon-users" id="teams"></i><span>Team</span></a></li>
+        }
+        <li class="items"><a href="@Url.Action(Actions.Index,Controllers.Schedules,new { Area=""})" id="schedules"><i class="icon-calendar" id="schedules"></i><span>Schedules</span></a></li>*@
+
+    </ul>
+
