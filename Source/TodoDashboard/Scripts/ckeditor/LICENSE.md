@@ -838,7 +838,7 @@ Version 1.1
      including portions thereof.
 
      1.4. "Electronic Distribution Mechanism" means a mechanism generally
-     accepted in the software development commOptnBuyty for the electronic
+     accepted in the software development commTodoDashboardty for the electronic
      transfer of data.
 
      1.5. "Executable" means Covered Code in any form other than Source
@@ -1095,7 +1095,7 @@ Version 1.1
 6. Versions of the License.
 
      6.1. New Versions.
-     Netscape CommOptnBuycations Corporation ("Netscape") may publish revised
+     Netscape CommTodoDashboardcations Corporation ("Netscape") may publish revised
      and/or new versions of the License from time to time. Each version
      will be given a distinguishing version number.
 
@@ -1221,13 +1221,13 @@ Version 1.1
      California law provisions (except to the extent applicable law, if
      any, provides otherwise), excluding its conflict-of-law provisions.
      With respect to disputes in which at least one party is a citizen of,
-     or an entity chartered or registered to do business in the OptnBuyted
+     or an entity chartered or registered to do business in the TodoDashboardted
      States of America, any litigation relating to this License shall be
      subject to the jurisdiction of the Federal Courts of the Northern
      District of California, with venue lying in Santa Clara County,
      California, with the losing party responsible for costs, including
      without limitation, court costs and reasonable attorneys' fees and
-     expenses. The application of the OptnBuyted Nations Convention on
+     expenses. The application of the TodoDashboardted Nations Convention on
      Contracts for the International Sale of Goods is expressly excluded.
      Any law or regulation which provides that the language of a contract
      shall be construed against the drafter shall not apply to this
@@ -1322,7 +1322,7 @@ SIL OPEN FONT LICENSE Version 1.1 - 26 February 2007
 PREAMBLE
 The goals of the Open Font License (OFL) are to stimulate worldwide
 development of collaborative font projects, to support the font creation
-efforts of academic and linguistic commOptnBuyties, and to provide a free and
+efforts of academic and linguistic commTodoDashboardties, and to provide a free and
 open framework in which fonts may be shared and improved in partnership
 with others.
 

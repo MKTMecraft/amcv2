@@ -5,9 +5,24 @@
 }
 
 <style>
+     .checkbox {
+    width: 25px;
+    height: 25px;
+}
+
     .addData {
         color: white !important;
-        background: #007bff !important;
+        background: #138496 !important;
+    }
+
+     thead{
+        background:#000;
+        color:white;
+    }
+
+     .addFilters {
+        color: black !important;
+        background: #e9e9e9 !important;
     }
 
     .has-error .checkbox, .has-error .checkbox-inline, .has-error .control-label, .has-error .form-control-feedback, .has-error .help-block, .has-error .radio, .has-error .radio-inline, .has-error.checkbox label, .has-error.checkbox-inline label, .has-error.radio label, .has-error.radio-inline label {
@@ -56,6 +71,7 @@
             <div class="body">
                 <div class="portlet light bordered">
                     <div class="portlet-title">
+                        <input type="hidden" id="checklog" />
                         <div class="tools col-md-12"></div>
                     </div>
                     <div class="portlet-body" id="divCustomerTable">
@@ -66,25 +82,20 @@
         </div>
     </div>
 </div>
-<div class="modal animated fadeIn" id="add_client" tabindex="-1" role="dialog">
+<div class="modal animated fadeIn" id="upsert" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h6 class="title" id="defaultModalLabel">Client Details</h6>
+                <h6 class="title" id="smallModalLabel">User Details</h6>
             </div>
 
             <div class="modal-body">
                 <form class="form-auth-small" method="post" id="frmClient">
                     <div class="row clearfix">
-                        <input type="hidden" id="clientId" />
+                        <input type="hidden" id="Id" />
                         <div class="col-md-4 col-sm-12">
                             <div class="form-group">
-                                <input type="text" id="FirstName" name="FirstName" class="form-control" placeholder="First Name *">
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-sm-12">
-                            <div class="form-group">
-                                <input type="text" id="LastName" name="LastName" class="form-control" placeholder="Last Name *">
+                                <input type="text" id="Name" name="Name" class="form-control" placeholder="Name *">
                             </div>
                         </div>
                         <div class="col-md-4 col-sm-12">
@@ -97,18 +108,13 @@
                                 <input type="text" id="Password" name="Password" class="form-control" placeholder="Password *">
                             </div>
                         </div>
-                        <div class="col-md-4 col-sm-12">
-                            <div class="form-group">
-                                <input type="text" id="ConfirmPassword" name="ConfirmPassword" class="form-control" placeholder="Confirm Password *">
-                            </div>
-                        </div>
                         <div class="col-12" style="text-align:right;">
-                            <input type="submit" id="Save" class="btn btn-primary" value="Save">
+                            <input type="submit" id="Save" class="btn btn-primary saveBtn" value="Save">
                             <button class="btn btn-primary loading" type="button" disabled style="display:none;float:right;">
                                 <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                                 Saving...
                             </button>
-                            <button type="button" class="btn btn-secondary closeBtn" id="Close" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-secondary closeBtn" onclick="CloseUpsert();" id="Close">Close</button>
                         </div>
 
                     </div>
@@ -143,10 +149,7 @@
                     focusInvalid: false, // do not focus the last invalid input
                     ignore: "",  // validate all fields including form hidden input
                     rules: {
-                        FirstName: {
-                            required: true,
-                        },
-                        LastName: {
+                        Name: {
                             required: true,
                         },
                         Email: {
@@ -154,12 +157,7 @@
                             email : true
                         },
                         Password: {
-                            required: true,
-                            password : true
-                        },
-                        ConfirmPassword: {
-                            required: true,
-                            password : true
+                            required: true
                         }
                     },
 
@@ -240,9 +238,16 @@
             },
             "columns": [
                 {
+                    "title": "<input type='checkbox' id='select_all' class='checkbox'>", "data": "",
+                    "render": function (data, type, row) {
+                        return '<input type="checkbox" value="' + row["Id"] +'" class="md-check child checkbox">';
+                    }
+                    , "orderable": false, "width": "1%"
+                },
+                {
                     "title": "Name", "data": "",
                     "render": function (data, type, row) {
-                        return '<p>' + row["FirstName"] +' '+row["LastName"]+'</p>'
+                        return '<b>' + row["Name"] +'</b>'
                     },
                     "orderable": false, "width": "15%"
                 },
@@ -256,28 +261,16 @@
                 {
                     "title": "Password", "data": "",
                     "render": function (data, type, row) {
-                        return '<p>' + row["AddressLine1"] +'</p>'
+                        return '<p>' + row["Password"] +'</p>'
                     },
                     "orderable": false, "width": "8%"
-                },
-                {
-                    "title": "Status", "data": "",
-                    "render": function (data, type, row) {
-                        if (row["IsActive"]) {
-                            return '<button class="badge badge-success" onclick=InactiveMessage("'+btoa(row["Id"])+'") style="cursor:pointer;">Active</button>';
-                        } else {
-                            return '<button class="badge badge-danger" onclick=ActiveMessage("'+btoa(row["Id"])+'") style="cursor:pointer;">In-Active</button>';
-                        }
-                    },
-                    "orderable": false, "width": "3%"
                 },
                 {
                     "title": "Action","class":"actionIcon",
                     "data": null,
                     "render": function (data, type, row) {
                         var appendstring = '';
-                        appendstring += '<button type="button" class="btn btn-sm btn-outline-secondary" onclick=OpenClient("' + btoa(row["Id"]) + '") title="Edit"><i class="fa fa-edit"></i></button>&nbsp;&nbsp;';
-                        appendstring += '<button class="btn btn-sm btn-outline-secondary button-remove" onclick=DeleteClientConfirm("' + btoa(row["Id"]) + '") title="Remove"><i class="icon-trash" aria-hidden="true"></i></button>';
+                        appendstring += '<button type="button" class="btn btn-sm btn-outline-secondary" onclick=OpenAddNewItem('+row["Id"]+') title="Edit Details"><i class="fa fa-edit"></i></button>&nbsp;&nbsp;';
                         return appendstring;
                     },
                     "width": "3%",
@@ -288,10 +281,17 @@
             // setup buttons extentension: http://datatables.net/extensions/buttons/
             "buttons": [
                  {
-                    text: 'Add Users',
+                    text: 'Add User',
                     className: 'addData',
                     action: function (e, dt, node, config) {
-                        OpenClient("MA==");
+                        OpenAddNewItem();
+                    }
+                },
+                {
+                    text: 'Delete',
+                    className: 'addFilters',
+                    action: function (e, dt, node, config) {
+                        ConfirmMessage();
                     }
                 }
             ],
@@ -350,90 +350,224 @@
         FormClientValidation.init();
     });
 
-    function InactiveMessage(Id) {
-        swal({
-            title: "Are you sure ?",
-            text: "You will be in-activating the client !",
-            type: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#dc3545",
-            confirmButtonText: "Yes, do it !",
-            closeOnConfirm: false
-        }, function () {
-            ActInact(Id,"inactivate");
-        });
-    }
+    //function InactiveMessage(Id) {
+    //    swal({
+    //        title: "Are you sure ?",
+    //        text: "You will be in-activating the client !",
+    //        type: "warning",
+    //        showCancelButton: true,
+    //        confirmButtonColor: "#dc3545",
+    //        confirmButtonText: "Yes, do it !",
+    //        closeOnConfirm: false
+    //    }, function () {
+    //        ActInact(Id,"inactivate");
+    //    });
+    //}
 
-    function ActiveMessage(Id) {
-        swal({
-            title: "Are you ?",
-            text: "You will be activating the client !",
-            type: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#dc3545",
-            confirmButtonText: "Yes, do it !",
-            closeOnConfirm: false
-        }, function () {
-            ActInact(Id,"activate");
-        });
-        }
+    //function ActiveMessage(Id) {
+    //    swal({
+    //        title: "Are you ?",
+    //        text: "You will be activating the client !",
+    //        type: "warning",
+    //        showCancelButton: true,
+    //        confirmButtonColor: "#dc3545",
+    //        confirmButtonText: "Yes, do it !",
+    //        closeOnConfirm: false
+    //    }, function () {
+    //        ActInact(Id,"activate");
+    //    });
+    //    }
 
-    function ActInact(rui, type) {
+    //function ActInact(rui, type) {
 
-                    if (type == "inactivate") {
-                        swal("In Activated !", "The client has been in-activated successfully.", "success");
-                    } else if (type == "activate") {
-                        swal("Activated !", "The client has been activated successfully.", "success");
-                    }
-        }
+    //                if (type == "inactivate") {
+    //                    swal("In Activated !", "The client has been in-activated successfully.", "success");
+    //                } else if (type == "activate") {
+    //                    swal("Activated !", "The client has been activated successfully.", "success");
+    //                }
+    //    }
 
-    function DeleteClientConfirm(rui) {
-        swal({
-            title: "Are you sure ?",
-            text: "You will be deleting the user !",
-            type: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#dc3545",
-            confirmButtonText: "Yes, do it !",
-            closeOnConfirm: false
-        }, function () {
-                DeleteClient(rui);
-        });
+    //function DeleteClientConfirm(rui) {
+    //    swal({
+    //        title: "Are you sure ?",
+    //        text: "You will be deleting the user !",
+    //        type: "warning",
+    //        showCancelButton: true,
+    //        confirmButtonColor: "#dc3545",
+    //        confirmButtonText: "Yes, do it !",
+    //        closeOnConfirm: false
+    //    }, function () {
+    //            DeleteClient(rui);
+    //    });
+    //        }
+
+    //function DeleteClient(rui) {
+    //}
+
+    //function OpenClient(rui) {
+    //    ClearClient();
+    //    if (rui == "MA==") {
+    //        $('#add_client').modal('show');
+    //    } else {
+    //        GetClientById(rui);
+    //    }
+    // }
+
+    //    function ClearClient() {
+    //       $("#FirstName").val('');
+    //       $("#LastName").val('');
+    //       $("#Email").val('');
+    //       $("#Password").val('');
+    //       $("#ConfirmPassword").val('');
+    //       $(".loading").hide();
+    //       $("#Save").show();
+    //       $("#Close").show();
+    //    }
+
+
+    //    function GetClientById(rui) {
+    //       $("#clientId").val('');
+    //       $("#FirstName").val('Devansh');
+    //       $("#LastName").val('Desai');
+    //       $("#Email").val('desaidevansh89@gmail.com');
+    //       $("#Password").val('*dDvnsh998');
+    //       $("#ConfirmPassword").val('*dDvnsh998');
+    //       $('#add_client').modal('show');
+    //    }
+
+
+        function OpenAddNewItem(Id) {
+            if (Id > 0) {
+                $("#smallModalLabel").text("Edit User");
+                $("#Id").val(0);
+                $(".saveBtn").show();
+                $(".loading").hide();
+                $(".closeBtn").show();
+
+                $.ajax({
+                      type: 'POST',
+                      url: "@Url.Action(Actions.GetById,Controllers.Users)",
+                      async: false,
+                      data: ({Id: Id}),
+                      dataType: 'json',
+                    success: function (response) {
+                        if (response != null && response.Code == 200 && response.Item != null) {
+                            $("#Id").val(response.Item.Id);
+                            $("#Name").val(response.Item.Name);
+                            $("#Email").val(response.Item.Email);
+                            $("#Password").val(response.Item.Password);
+                            $('#upsert').modal('show');
+                        }
+                      },
+                    error: function (response) {
+                          CloseUpsert();
+                      }
+                });
+
+            } else {
+                $("#smallModalLabel").text("Add User");
+                $("#Id").val(0);
+                $(".saveBtn").show();
+                $(".loading").hide();
+                $(".closeBtn").show();
+                $('#upsert').modal('show');
             }
+        }
 
-    function DeleteClient(rui) {
+        function Upsert() {
+            $(".saveBtn").hide();
+            $(".loading").show();
+            $(".closeBtn").hide();
+            $.ajax({
+                      type: 'POST',
+                      url: "@Url.Action(Actions.Upsert,Controllers.Users)",
+                async: false,
+                data: ({ Id: $("#Id").val(), Name: $("#Name").val(), Email: $("#Email").val(), Password:$("#Password").val() }),
+                      dataType: 'json',
+                      success: function (response) {
+                          if (response.Code == 200) {
+                              CloseUpsert();
+                              swal("Great!", "Details Saved !", "success");
+                              TableDatatablesColreorder.init();
+                          } else {
+                              swal("Oops!", response.Message, "error");
+                              CloseUpsert();
+                          }
+                      },
+                error: function (response) {
+                    swal("Opps!", "An error occured ! Please try again.", "error");
+                    CloseUpsert();
+                      }
+                });
+        }
+
+    function CloseUpsert() {
+        $("#Id").val(0);
+        $("#Name").val('');
+        $("#Password").val('');
+        $("#Email").val('');
+        $(".saveBtn").show();
+        $(".loading").hide();
+        $(".closeBtn").show();
+        $("#upsert").modal("hide");
     }
 
-    function OpenClient(rui) {
-        ClearClient();
-        if (rui == "MA==") {
-            $('#add_client').modal('show');
-        } else {
-            GetClientById(rui);
-        }
-     }
-
-        function ClearClient() {
-           $("#FirstName").val('');
-           $("#LastName").val('');
-           $("#Email").val('');
-           $("#Password").val('');
-           $("#ConfirmPassword").val('');
-           $(".loading").hide();
-           $("#Save").show();
-           $("#Close").show();
+    function ConfirmMessage() {
+            swal({
+                title: "Are you sure ?",
+                text: "You will be deleting the selected entries !",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#dc3545",
+                confirmButtonText: "Yes, do it !",
+                closeOnConfirm: false
+            }, function () {
+                    Delete();
+            });
         }
 
-
-        function GetClientById(rui) {
-           $("#clientId").val('');
-           $("#FirstName").val('Devansh');
-           $("#LastName").val('Desai');
-           $("#Email").val('desaidevansh89@gmail.com');
-           $("#Password").val('*dDvnsh998');
-           $("#ConfirmPassword").val('*dDvnsh998');
-           $('#add_client').modal('show');
+    function Delete() {
+        getCheckedBoxesData();
+            $.ajax({
+                      type: 'POST',
+                      url: "@Url.Action(Actions.Delete,Controllers.Users)",
+                      async: false,
+                      data: ({ids: $("#checklog").val()}),
+                      dataType: 'json',
+                      success: function (response) {
+                          if (response) {
+                              swal("Great!", "Users Deleted", "success");
+                              TableDatatablesColreorder.init();
+                          } else {
+                              swal("Oops!", response.Message, "error");
+                              CloseUpsert();
+                          }
+                      },
+                error: function (response) {
+                    swal("Opps!", "An error occured ! Please try again.", "error");
+                    CloseUpsert();
+                      }
+                });
         }
+
+    $(function () {
+        $('#select_all').on('change', function () {
+            $('.child').prop('checked', this.checked);
+        });
+        $('.child').on('change', function () {
+            $('#select_all').prop('checked', $('.child:checked').length === $('.child').length);
+        });
+     });
+
+    function getCheckedBoxesData() {
+        var data = "";
+        $('.md-check:checked').each(function () {
+            if ($(".md-check").is(":checked")) {
+                data += $(this).closest('tr').find('.child').val() + ",";
+            }
+            $("#checklog").val(data);
+        });
+    }
 
     </script>
 

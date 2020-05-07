@@ -109,10 +109,30 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AbstractBaseService.cs" />
+    <Compile Include="Contract\AbstarctMasterBarTypesService.cs" />
+    <Compile Include="Contract\AbstarctMasterDistributorsService .cs" />
+    <Compile Include="Contract\AbstarctMasterLocationsService.cs" />
+    <Compile Include="Contract\AbstarctMasterServicesTypesService .cs" />
+    <Compile Include="Contract\AbstarctMasterStatesService.cs" />
+    <Compile Include="Contract\AbstarctMasterTiersService.cs" />
+    <Compile Include="Contract\AbstarctMasterUserService.cs" />
+    <Compile Include="Contract\AbstarctMasterUserTypeService.cs" />
+    <Compile Include="Contract\AbstarctMasterWinesService.cs" />
+    <Compile Include="Contract\AbstarctMasterWineVaritalsService.cs" />
     <Compile Include="Contract\AbstractTdd_ClientServices.cs" />
     <Compile Include="Contract\AbstractTdd_AdminServices .cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServiceModule.cs" />
+    <Compile Include="V1\MasterBarTypesServices.cs" />
+    <Compile Include="V1\MasterDistributorsServices.cs" />
+    <Compile Include="V1\MasterLocationsServices .cs" />
+    <Compile Include="V1\MasterServicesTypesServices.cs" />
+    <Compile Include="V1\MasterStatesServices.cs" />
+    <Compile Include="V1\MasterTiersServices.cs" />
+    <Compile Include="V1\MasterUserServices.cs" />
+    <Compile Include="V1\MasterUserTypeServices.cs" />
+    <Compile Include="V1\MasterWinesServices.cs" />
+    <Compile Include="V1\MasterWineVaritalsServices.cs" />
     <Compile Include="V1\Tdd_ClientServices.cs" />
     <Compile Include="V1\Tdd_AdminServices.cs" />
   </ItemGroup>

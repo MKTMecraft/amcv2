@@ -21,7 +21,7 @@
 
 <!-- Mirrored from www.wrraptheme.com/templates/lucid/hr/html/light/page-login.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 25 Feb 2020 06:21:05 GMT -->
 <head>
-    <title>Sign In | MKTM Drink Database</title>
+    <title>Sign In | AMC</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
@@ -81,8 +81,8 @@
 
                     </div>
                     <div class="card">
-                        <div class="header">
-                            <h3>MKTM Drink Database</h3>
+                        <div class="header" style="text-align:center;">
+                            <a href="#"><img src="http://demo.soboft.com/wine/assets/images/login-logo.png" alt="Lucid Logo" class="img-responsive logo" style="width:260px;"></a>
                             <p class="lead">Login to your account</p>
                         </div>
                         <div class="body">
@@ -102,6 +102,10 @@
                                     <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                                     Verifying...
                                 </button>
+                                <br/>
+                                <div style="text-align:center;">
+                                    <h5>Powered by Marketeam Inc.</h5>
+                                </div>
                             </form>
                         </div>
                     </div>
@@ -173,7 +177,32 @@
                     },
 
                     submitHandler: function (form) {
-                        window.location.href = '@Url.Action(Actions.Index,Controllers.Home)';
+                     //   window.location.href = '@Url.Action(Actions.Index,Controllers.Home)';
+                        $("#signin").hide();
+                        $(".loading").show();
+                        $.ajax({
+                            url: '@Url.Action(Actions.SignIn,Controllers.Authentication,new { Area="" })',
+                            data: {email: $("#Email").val(),password:$("#Password").val()},
+                            type: "POST",
+                            dataType: "json",
+                            success: function (result) {
+                                $("#wrgMsg").hide();
+                                if (result.Code == 200) {
+                                    window.location.href = '@Url.Action(Actions.Index,Controllers.Home, new { area=""})';
+
+                                } else if (result.Code == 400 || result.Code == 403 || result.Code == 404) {
+                                    $("#signin").show();
+                                    $("#wrgMsg").text(result.Message)
+                                    $("#wrgMsg").show();
+                                    $(".loading").hide();
+                                } else {
+                                    $("#signin").show();
+                                    $("#wrgMsg").text("An error occured !")
+                                    $("#wrgMsg").show();
+                                    $(".loading").hide();
+                                }
+                            }
+                        });
                     }
                 });
             }

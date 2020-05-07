@@ -18,12 +18,13 @@ namespace TodoDashboard.Controllers
     public class UsersController : BaseController
     {
         #region Fields
-        
+        public readonly AbstractMasterUserService abstractMasterUserService;
         #endregion
 
         #region Ctor
-        public UsersController()
+        public UsersController(AbstractMasterUserService abstractMasterUserService)
         {
+            this.abstractMasterUserService = abstractMasterUserService;
         }
         #endregion
 
@@ -46,46 +47,56 @@ namespace TodoDashboard.Controllers
                 PageParam pageParam = new PageParam();
                 pageParam.Offset = requestModel.Start;
                 pageParam.Limit = requestModel.Length;
+                string search = Convert.ToString(requestModel.Search.Value);
 
-                List<Tdd_Client> Tdd_Client = new List<Tdd_Client>();
+                var model = abstractMasterUserService.MasterUser_All(pageParam, search, null);
+                
+                totalRecord = (int)model.TotalRecords;
+                filteredRecord = (int)model.TotalRecords;
 
-                Tdd_Client tdd_Clients = new Tdd_Client();
-                tdd_Clients.FirstName = "Devansh";
-                tdd_Clients.LastName = "Desai";
-                tdd_Clients.Email = "desaidevansh89@gmail.com";
-                tdd_Clients.AddressLine1 = "*dDvnsh998";
-                tdd_Clients.IsActive = true;
-                Tdd_Client.Add(tdd_Clients);
-
-                tdd_Clients = new Tdd_Client();
-                tdd_Clients.FirstName = "Rushay";
-                tdd_Clients.LastName = "Trivedi";
-                tdd_Clients.Email = "rushaytrivedi@gmail.com";
-                tdd_Clients.AddressLine1 = "rushVedi1997";
-                tdd_Clients.IsActive = false;
-                Tdd_Client.Add(tdd_Clients);
-
-                tdd_Clients = new Tdd_Client();
-                tdd_Clients.FirstName = "Hassan";
-                tdd_Clients.LastName = "Mansuri";
-                tdd_Clients.Email = "hassanmansuri@soboft.com";
-                tdd_Clients.AddressLine1 = "mansurriHassan123";
-                tdd_Clients.IsActive = true;
-                Tdd_Client.Add(tdd_Clients);
-
-
-                string search = requestModel.Search.Value;
-                //var model = null;
-                totalRecord = (int)3;
-                filteredRecord = (int)3;
-
-                return Json(new DataTablesResponse(requestModel.Draw, Tdd_Client, filteredRecord, totalRecord), JsonRequestBehavior.AllowGet);
+                return Json(new DataTablesResponse(requestModel.Draw, model.Values, filteredRecord, totalRecord), JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
                 //ErrorLogHelper.Log(ex);
                 return Json(new object[] { null }, JsonRequestBehavior.AllowGet);
             }
+        }
+
+        public JsonResult Upsert(int Id,string Name,string Email, string Password)
+        {
+            AbstractMasterUser abstractMasterUser = new MasterUser();
+            abstractMasterUser.Id = Id;
+            abstractMasterUser.Name = Name;
+            abstractMasterUser.Email = Email;
+            abstractMasterUser.Password = Password;
+            SuccessResult<AbstractMasterUser> successResult = abstractMasterUserService.MasterUser_Upsert(abstractMasterUser);
+            return Json(successResult, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult Delete(string ids)
+        {
+            ids = ids.Substring(0, ids.Length - 1);
+            string var_sql = "delete from MasterUser where Id in (" + ids + ")";
+            try
+            {
+                SqlConnection con = new SqlConnection(Configurations.ConnectionString);
+                con.Open();
+                SqlCommand cmd = new SqlCommand(var_sql, con);
+                cmd.ExecuteNonQuery();
+                con.Close();
+                return Json(true, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(false, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult GetById(int Id)
+        {
+            SuccessResult<AbstractMasterUser> successResult = abstractMasterUserService.MasterUser_Id(Id);
+            return Json(successResult, JsonRequestBehavior.AllowGet);
         }
         #endregion
     }

@@ -963,7 +963,7 @@
 						tooltip = before.tooltip;
 				}
 
-				clsName = $.OptnBuyque(clsName);
+				clsName = $.TodoDashboardque(clsName);
 				html.push('<td class="'+clsName.join(' ')+'"' + (tooltip ? ' title="'+tooltip+'"' : '') + '>'+prevMonth.getUTCDate() + '</td>');
 				tooltip = null;
 				if (prevMonth.getUTCDay() === this.o.weekEnd){

@@ -1,1 +1,1 @@
-﻿CKEDITOR.plugins.setLang("smiley","cy",{options:"Opsiynau GwenoglOptnBuyau",title:"Mewnosod Gwenoglun",toolbar:"Gwenoglun"});
+﻿CKEDITOR.plugins.setLang("smiley","cy",{options:"Opsiynau GwenoglTodoDashboardau",title:"Mewnosod Gwenoglun",toolbar:"Gwenoglun"});

@@ -7,13 +7,14 @@
     /**/
 
     var curController = Convert.ToString(ViewContext.RouteData.Values["Controller"]);
+    var curAction = Convert.ToString(ViewContext.RouteData.Values["Action"]);
 }
 
 <!DOCTYPE html>
 
 <html>
 <head>
-    <title>MKTM Drink Database | @ViewBag.Title  </title>
+    <title>AMC Database | @ViewBag.Title  </title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
@@ -80,8 +81,8 @@
                 </div>
 
                 <div class="navbar-brand">
-                    <a href="@Url.Action(Actions.Index,Controllers.Home,new { Area = ""})"><h5>MKTM Drink Database</h5></a>
-                    @*<img src="~/assets/images/tl.png" alt="Lucid Logo" class="img-responsive logo or_logo mobile_logo">*@
+                    @*<a href="@Url.Action(Actions.Index,Controllers.Home,new { Area = ""})"><h5>AMC Database</h5></a>*@
+                    <img src="http://demo.soboft.com/wine/assets/images/login-logo.png" style="width: 77px !important;" alt="AMC Logo" class="img-responsive logo or_logo mobile_logo">
                 </div>
 
                 <div class="navbar-right">
@@ -101,9 +102,9 @@
                 <div class="user-account">
                     <div class="dropdown">
                         <span>
-                            Welcome, <strong>Ruilin Zhang</strong>
+                            Welcome, <strong>@ProjectSession.UserName</strong>
                         </span>
-                        <a href="javascript:void(0);" class="user-name"><strong>Admin</strong></a>
+                        <a href="javascript:void(0);" class="user-name"><strong>@ProjectSession.AdminRoleName</strong></a>
                     </div>
                     <hr>
                 </div>
@@ -143,17 +144,26 @@
 
             switch ('@curController') {
                 case '@Controllers.Home':
-                    setActiveLink($('#dashboard').attr('id'));
+                    setActiveLink($('#Dashboard').attr('id'));
+                    break;
+                case '@Controllers.Master':
+                    setActiveLink($('#Master').attr('id'));
+                    setSubActiveLink('@curAction');
                     break;
                 case '@Controllers.Users':
-                    setActiveLink($('#clients').attr('id'));
+                    setActiveLink($('#Users').attr('id'));
                     break;
             }
         }
 
         function setActiveLink(menuId) {
-            $(".items").find("a[id='" + menuId + "']").parent("li").addClass("active");
-            $(".items").find("a[id='" + menuId + "']").parent("li").append("<span class='selected'></span>");
+            $(".custom").find("a[id='" + menuId + "']").parent("li").addClass("active");
+            //$(".items").find("a[id='" + menuId + "']").parent("li").append("<span class='selected'></span>");
+        };
+
+        function setSubActiveLink(menuId) {
+            $(".custom").find("a[id='" + menuId + "']").parent("li").addClass("active");
+            //$(".items").find("a[id='" + menuId + "']").parent("li").append("<span class='selected'></span>");
         };
     </script>
     @RenderSection("scripts", required: false)

@@ -20,7 +20,7 @@ Here's what did change in an incompatible way:
   </script>
   ```
 
-- `tabReplace` and `useBR` that were used in different places are also OptnBuyfied
+- `tabReplace` and `useBR` that were used in different places are also TodoDashboardfied
   into the global options object and are to be set using `configure(options)`.
   This function is documented in our [API docs][]. Also note that these
   parameters are gone from `highlightBlock` and `fixMarkup` which are now also
@@ -32,7 +32,7 @@ Here's what did change in an incompatible way:
 
 - Result returned from `highlight` and `highlightAuto` no longer contains two
   separate attributes contributing to relevance score, `relevance` and
-  `keyword_count`. They are now OptnBuyfied in `relevance`.
+  `keyword_count`. They are now TodoDashboardfied in `relevance`.
 
 Another technically compatible change that nonetheless might need attention:
 
@@ -282,7 +282,7 @@ Notable changes:
   installable with `npm install highlight.js`. [API][] docs are available on our
   wiki.
 
-- The new OptnBuyque feature (apparently) among syntax highlighters is highlighting
+- The new TodoDashboardque feature (apparently) among syntax highlighters is highlighting
   *HTTP* headers and an arbitrary language in the request body. The most useful
   languages here are *XML* and *JSON* both of which highlight.js does support.
   Here's [the detailed post][p] about the feature.
@@ -293,9 +293,9 @@ Notable changes:
 - Three new languages: *D* by [Aleksandar Ružičić][ar], *R* by [Joe Cheng][jc]
   and *GLSL* by [Sergey Tikhomirov][st].
 
-- *Nginx* syntax has become a million times smaller and more OptnBuyversal thanks to
+- *Nginx* syntax has become a million times smaller and more TodoDashboardversal thanks to
   remaking it in a more generic manner that doesn't require listing all the
-  directives in the known OptnBuyverse.
+  directives in the known TodoDashboardverse.
 
 - Function titles are now highlighted in *PHP*.
 
@@ -420,7 +420,7 @@ developers.
 
 - Description of C++ has got new keywords from the upcoming [C++ 0x][] standard.
 - Description of HTML has got new tags from [HTML 5][].
-- CSS-styles have been OptnBuyfied to use consistent padding and also have lost
+- CSS-styles have been TodoDashboardfied to use consistent padding and also have lost
   pop-outs with names of detected languages.
 - [Igor Kalnitsky][ik] has sent two new language descriptions: CMake и VHDL.
 
@@ -774,7 +774,7 @@ A maintenance release with more tuned heuristics. Fully backwards compatible.
 
 - Nikita Ledyaev presents highlighting for VBScript, yay!
 - A couple of bugs with escaping in strings were fixed thanks to Mickle
-- Ongoing tOptnBuyng of heuristics
+- Ongoing tTodoDashboardng of heuristics
 
 Fixed bugs were rather unpleasant so I encourage everyone to upgrade!
 

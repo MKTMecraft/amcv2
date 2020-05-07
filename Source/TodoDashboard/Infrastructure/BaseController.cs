@@ -23,6 +23,16 @@ namespace TodoDashboard.Infrastructure
             base.Initialize(requestContext);
         }
 
+        private bool IsAllowed(string controllerName, string[] accessControllers)
+        {
+            foreach (string accessController in accessControllers)
+            {
+                if (accessController.ToLower() == controllerName)
+                    return true;
+            }
+            return false;
+        }
+
         /// <summary>
         /// Called by the ASP.NET MVC framework before the action method executes.
         /// </summary>
@@ -31,17 +41,44 @@ namespace TodoDashboard.Infrastructure
         {
             try
             {
-                //HttpCookie reqCookie = Request.Cookies["UserLogin"];
-                //if (reqCookie == null)
-                //{
-                //    filterContext.Result = new RedirectResult("~/Authentication/SignIn");
-                //    return;
-                //}
+                bool isAllow = false;
 
-                //AdminUserName = Convert.ToString(reqCookie["UserName"]);
-                //ProjectSession.AdminUserName = AdminUserName;
+                HttpCookie reqCookie = Request.Cookies["ClientLogin"];
+                if (reqCookie == null)
+                {
+                    filterContext.Result = new RedirectResult("~/Authentication/SignIn");
+                    return;
+                }
 
-                //bool isAllow = false;
+                AdminUserName = Convert.ToString(reqCookie["UserName"]);
+                ProjectSession.AdminUserName = AdminUserName;
+
+                ProjectSession.UserType = ConvertTo.Integer(reqCookie["UserType"]);
+
+
+                if (ProjectSession.UserType == 1 &&
+                    IsAllowed(filterContext.ActionDescriptor.ControllerDescriptor.ControllerName.ToLower(),
+                    Pages.Controllers.Admin
+                    ))
+                {
+                    isAllow = true;
+                }
+                else if (ProjectSession.UserType == 2 &&
+                    IsAllowed(filterContext.ActionDescriptor.ControllerDescriptor.ControllerName.ToLower(),
+                    Pages.Controllers.Managers
+                    ))
+                {
+                    isAllow = true;
+                }
+
+
+
+                if (!isAllow)
+                {
+                    filterContext.Result = new RedirectResult("~/Authentication/SignIn");
+                    return;
+                }
+                base.OnActionExecuting(filterContext);
                 //if (ProjectSession.AdminRoleName == "Admin")
                 //{
                 //    isAllow = true;

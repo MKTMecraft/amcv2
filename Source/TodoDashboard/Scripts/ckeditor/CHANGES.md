@@ -353,7 +353,7 @@ Fixed Issues:
 * [#11064](https://dev.ckeditor.com/ticket/11064): [Blink, WebKit] Fixed: Cannot select all editor content when a widget or a non-editable element is the first or last element of the content. Also fixes this issue in the [Select All](https://ckeditor.com/cke4/addon/selectall) plugin.
 * [#14755](https://dev.ckeditor.com/ticket/14755): [Blink, WebKit, IE8] Fixed: Browser hangs when a table is inserted in the place of a selected list with an empty last item.
 * [#16624](https://dev.ckeditor.com/ticket/16624): Fixed: Improved the [Color Button](https://ckeditor.com/cke4/addon/colorbutton) plugin which will now normalize the CSS `background` property if it only contains a color value. This fixes missing background colors when using [Paste from Word](https://ckeditor.com/cke4/addon/pastefromword).
-* [#16600](https://dev.ckeditor.com/ticket/16600): [Blink, WebKit] Fixed: Error thrown occasionally by an OptnBuynitialized editable for multiple CKEditor instances on the same page.
+* [#16600](https://dev.ckeditor.com/ticket/16600): [Blink, WebKit] Fixed: Error thrown occasionally by an TodoDashboardnitialized editable for multiple CKEditor instances on the same page.
 
 ## CKEditor 4.6
 
@@ -507,7 +507,7 @@ Fixed Issues:
 New Features:
 
 * Introduced the [`CKEDITOR.tools.getCookie()`](https://docs.ckeditor.com/ckeditor4/docs/#!/api/CKEDITOR.tools-method-getCookie) and [`CKEDITOR.tools.setCookie()`](https://docs.ckeditor.com/ckeditor4/docs/#!/api/CKEDITOR.tools-method-setCookie) methods for accessing cookies.
-* Introduced the [`CKEDITOR.tools.getCsrfToken()`](https://docs.ckeditor.com/ckeditor4/docs/#!/api/CKEDITOR.tools-method-getCsrfToken) method. The CSRF token is now automatically sent by the [File Browser](https://ckeditor.com/cke4/addon/filebrowser) and [File Tools](https://ckeditor.com/cke4/addon/filetools) plugins during file uploads. The server-side upload handlers may check it and use it to additionally secure the commOptnBuycation.
+* Introduced the [`CKEDITOR.tools.getCsrfToken()`](https://docs.ckeditor.com/ckeditor4/docs/#!/api/CKEDITOR.tools-method-getCsrfToken) method. The CSRF token is now automatically sent by the [File Browser](https://ckeditor.com/cke4/addon/filebrowser) and [File Tools](https://ckeditor.com/cke4/addon/filetools) plugins during file uploads. The server-side upload handlers may check it and use it to additionally secure the commTodoDashboardcation.
 
 Other Changes:
 
@@ -711,7 +711,7 @@ New Features:
     * [File upload tools](https://docs.ckeditor.com/ckeditor4/docs/#!/api/CKEDITOR.fileTools) were introduced in order to simplify controlling the loading, uploading and handling server response, properly handle [new upload configuration](https://docs.ckeditor.com/ckeditor4/docs/#!/api/CKEDITOR.config-cfg-uploadUrl) options, etc.
     * [Upload Image](https://ckeditor.com/cke4/addon/uploadimage) widget was introduced to upload dropped images. A base class for the [upload widget](https://docs.ckeditor.com/ckeditor4/docs/#!/api/CKEDITOR.fileTools.uploadWidgetDefinition) was exposed, too, to make it simple to create new types of upload widgets which can handle any type of dropped file, show the upload progress and update the content when the process is done. It also handles editing and undo/redo operations when a file is being uploaded and integrates with the [notification aggregator](https://docs.ckeditor.com/ckeditor4/docs/#!/api/CKEDITOR.plugins.notificationAggregator) to show progress and success or error.
     * All drag and drop operations were integrated with the editor. All dropped content is passed through the [`editor#paste`](https://docs.ckeditor.com/ckeditor4/docs/#!/api/CKEDITOR.editor-event-paste) event and a set of new editor events was introduced &mdash; [`dragstart`](https://docs.ckeditor.com/ckeditor4/docs/#!/api/CKEDITOR.editor-event-dragstart), [`drop`](https://docs.ckeditor.com/ckeditor4/docs/#!/api/CKEDITOR.editor-event-drop), [`dragend`](https://docs.ckeditor.com/ckeditor4/docs/#!/api/CKEDITOR.editor-event-dragend).
-    * The [Data Transfer](https://docs.ckeditor.com/ckeditor4/docs/#!/api/CKEDITOR.plugins.clipboard.dataTransfer) facade was introduced to OptnBuyfy access to data in various types and files. [Data Transfer](https://docs.ckeditor.com/ckeditor4/docs/#!/api/CKEDITOR.plugins.clipboard.dataTransfer) is now always available in the [`editor#paste`](https://docs.ckeditor.com/ckeditor4/docs/#!/api/CKEDITOR.editor-event-paste) event.
+    * The [Data Transfer](https://docs.ckeditor.com/ckeditor4/docs/#!/api/CKEDITOR.plugins.clipboard.dataTransfer) facade was introduced to TodoDashboardfy access to data in various types and files. [Data Transfer](https://docs.ckeditor.com/ckeditor4/docs/#!/api/CKEDITOR.plugins.clipboard.dataTransfer) is now always available in the [`editor#paste`](https://docs.ckeditor.com/ckeditor4/docs/#!/api/CKEDITOR.editor-event-paste) event.
     * Switched from the pastebin to using the native clipboard access whenever possible. This solved many issues related to pastebin such as unnecessary scrolling or data loss. Additionally, on copy and cut from the editor the clipboard data is set. Therefore, on paste the editor has access to clean data, undisturbed by the browsers.
     * Drag and drop of inline and block widgets was integrated with the standard clipboard APIs. By listening to drag events you will thus be notified about widgets, too. This opens a possibility to filter pasted and dropped widgets.
     * The [`editor#paste`](https://docs.ckeditor.com/ckeditor4/docs/#!/api/CKEDITOR.editor-event-paste) event can have the `range` parameter so it is possible to change the paste position in the listener or paste in the not selectable position. Also the [`editor.insertHtml()`](https://docs.ckeditor.com/ckeditor4/docs/#!/api/CKEDITOR.editor-method-insertHtml) method now accepts `range` as an additional parameter.
@@ -756,7 +756,7 @@ New Features:
 * [#12150](https://dev.ckeditor.com/ticket/12150): Exposed the [`getNestedEditable()`](https://docs.ckeditor.com/ckeditor4/docs/#!/api/CKEDITOR.plugins.widget-static-method-getNestedEditable) and `is*` [widget helper](https://docs.ckeditor.com/ckeditor4/docs/#!/api/CKEDITOR.plugins.widget) functions (see the static methods).
 * [#12448](https://dev.ckeditor.com/ticket/12448): Introduced the [`editable.insertHtmlIntoRange`](https://docs.ckeditor.com/ckeditor4/docs/#!/api/CKEDITOR.editable-method-insertHtmlIntoRange) method.
 * [#12143](https://dev.ckeditor.com/ticket/12143): Added the [`config.floatSpacePreferRight`](https://docs.ckeditor.com/ckeditor4/docs/#!/api/CKEDITOR.config-cfg-floatSpacePreferRight) configuration option that switches the alignment of the floating toolbar. Thanks to [InvisibleBacon](http://github.com/InvisibleBacon)!
-* [#10986](https://dev.ckeditor.com/ticket/10986): Added support for changing dialog input and textarea text directions by using the *Shift+Alt+Home/End* keystrokes. The direction is stored in the value of the input by prepending the [`\u202A`](http://OptnBuycode.org/cldr/utility/character.jsp?a=202A) or [`\u202B`](http://OptnBuycode.org/cldr/utility/character.jsp?a=202B) marker to it. Read more in the [documentation](https://docs.ckeditor.com/ckeditor4/docs/#!/api/CKEDITOR.dialog.definition.textInput-property-bidi). Thanks to [edithkk](https://github.com/edithkk)!
+* [#10986](https://dev.ckeditor.com/ticket/10986): Added support for changing dialog input and textarea text directions by using the *Shift+Alt+Home/End* keystrokes. The direction is stored in the value of the input by prepending the [`\u202A`](http://TodoDashboardcode.org/cldr/utility/character.jsp?a=202A) or [`\u202B`](http://TodoDashboardcode.org/cldr/utility/character.jsp?a=202B) marker to it. Read more in the [documentation](https://docs.ckeditor.com/ckeditor4/docs/#!/api/CKEDITOR.dialog.definition.textInput-property-bidi). Thanks to [edithkk](https://github.com/edithkk)!
 * [#12770](https://dev.ckeditor.com/ticket/12770): Added support for passing [widget](https://docs.ckeditor.com/ckeditor4/docs/#!/api/CKEDITOR.plugins.widget)'s startup data as a widget command's argument. Thanks to [Rebrov Boris](https://github.com/zipp3r) and [Tieme van Veen](https://github.com/tiemevanveen)!
 * [#11583](https://dev.ckeditor.com/ticket/11583): Added support for the HTML5 `required` attribute in various form elements. Thanks to [Steven Busse](https://github.com/sbusse)!
 
@@ -1058,7 +1058,7 @@ New Features:
 
 Other Changes:
 
-* [#11377](https://dev.ckeditor.com/ticket/11377): OptnBuyfied internal representation of empty anchors using the [fake objects](https://ckeditor.com/cke4/addon/fakeobjects).
+* [#11377](https://dev.ckeditor.com/ticket/11377): TodoDashboardfied internal representation of empty anchors using the [fake objects](https://ckeditor.com/cke4/addon/fakeobjects).
 * [#11422](https://dev.ckeditor.com/ticket/11422): Removed Firefox 3.x, Internet Explorer 6 and Opera 12.x leftovers in code.
 * [#5217](https://dev.ckeditor.com/ticket/5217): Setting data (including switching between modes) creates a new undo snapshot. Besides that:
   * Introduced the [`editable.status`](https://docs.ckeditor.com/ckeditor4/docs/#!/api/CKEDITOR.editable-property-status) property.
@@ -1151,7 +1151,7 @@ Fixed Issues:
 * [#11186](https://dev.ckeditor.com/ticket/11186): Introduced the [`widgets.repository.addUpcastCallback()`](https://docs.ckeditor.com/ckeditor4/docs/#!/api/CKEDITOR.plugins.widget.repository-method-addUpcastCallback) method that allows to block upcasting given element to a widget.
 * [#11307](https://dev.ckeditor.com/ticket/11307): Fixed: Paste as Plain Text conflict with the [MooTools](http://mootools.net) library.
 * [#11140](https://dev.ckeditor.com/ticket/11140): [IE11] Fixed: Anchors are not draggable.
-* [#11379](https://dev.ckeditor.com/ticket/11379): Changed default contents `line-height` to OptnBuytless values to avoid huge text overlapping (like in [#9696](https://dev.ckeditor.com/ticket/9696)).
+* [#11379](https://dev.ckeditor.com/ticket/11379): Changed default contents `line-height` to TodoDashboardtless values to avoid huge text overlapping (like in [#9696](https://dev.ckeditor.com/ticket/9696)).
 * [#10787](https://dev.ckeditor.com/ticket/10787): [Firefox] Fixed: Broken replacement of text while pasting into `div`-based editor.
 * [#10884](https://dev.ckeditor.com/ticket/10884): Widgets integration with the [Show Blocks](https://ckeditor.com/cke4/addon/showblocks) plugin.
 * [#11021](https://dev.ckeditor.com/ticket/11021): Fixed: An error thrown when selecting entire editable contents while fake selection is on.
@@ -1360,7 +1360,7 @@ Fixed Issues:
 
 * [#10644](https://dev.ckeditor.com/ticket/10644): Fixed a critical bug when pasting plain text in Blink-based browsers.
 * [#5189](https://dev.ckeditor.com/ticket/5189): [Find/Replace](https://ckeditor.com/cke4/addon/find) dialog window: rename "Cancel" button to "Close".
-* [#10562](https://dev.ckeditor.com/ticket/10562): [Housekeeping] OptnBuyfied CSS gradient filter formats in the [Moono](https://ckeditor.com/cke4/addon/moono) skin.
+* [#10562](https://dev.ckeditor.com/ticket/10562): [Housekeeping] TodoDashboardfied CSS gradient filter formats in the [Moono](https://ckeditor.com/cke4/addon/moono) skin.
 * [#10537](https://dev.ckeditor.com/ticket/10537): Advanced Content Filter should register a default rule for [`config.shiftEnterMode`](https://docs.ckeditor.com/ckeditor4/docs/#!/api/CKEDITOR.config-cfg-shiftEnterMode).
 * [#10610](https://dev.ckeditor.com/ticket/10610): [`CKEDITOR.dialog.addIframe()`](https://docs.ckeditor.com/ckeditor4/docs/#!/api/CKEDITOR.dialog-static-method-addIframe) incorrectly sets the iframe size in dialog windows.
 
@@ -1381,7 +1381,7 @@ Fixed Issues:
 * [#10146](https://dev.ckeditor.com/ticket/10146): [Firefox] Empty lines are being removed while [`config.enterMode`](https://docs.ckeditor.com/ckeditor4/docs/#!/api/CKEDITOR.config-cfg-enterMode) is [`CKEDITOR.ENTER_BR`](https://docs.ckeditor.com/ckeditor4/docs/#!/api/CKEDITOR-property-ENTER_BR).
 * [#10360](https://dev.ckeditor.com/ticket/10360): Fixed: ARIA `role="application"` should not be used for dialog windows.
 * [#10361](https://dev.ckeditor.com/ticket/10361): Fixed: ARIA `role="application"` should not be used for floating panels.
-* [#10510](https://dev.ckeditor.com/ticket/10510): Introduced OptnBuyque voice labels to differentiate between different editor instances.
+* [#10510](https://dev.ckeditor.com/ticket/10510): Introduced TodoDashboardque voice labels to differentiate between different editor instances.
 * [#9945](https://dev.ckeditor.com/ticket/9945): [iOS] Scrolling not possible on iPad.
 * [#10389](https://dev.ckeditor.com/ticket/10389): Fixed: Invalid HTML in the "Text and Table" template.
 * [WebSpellChecker](https://ckeditor.com/cke4/addon/wsc) plugin user interface was changed to match CKEditor 4 style.
@@ -1401,7 +1401,7 @@ Fixed Issues:
 * [#10268](https://dev.ckeditor.com/ticket/10268): [Show Blocks](https://ckeditor.com/cke4/addon/showblocks) does not recover after switching to Source view.
 * [#9995](https://dev.ckeditor.com/ticket/9995): HTML code in the `<textarea>` should not be modified by the [`htmlDataProcessor`](https://docs.ckeditor.com/ckeditor4/docs/#!/api/CKEDITOR.htmlDataProcessor).
 * [#10320](https://dev.ckeditor.com/ticket/10320): [Justify](https://ckeditor.com/cke4/addon/justify) plugin should add elements to Advanced Content Filter based on current [Enter mode](https://docs.ckeditor.com/ckeditor4/docs/#!/api/CKEDITOR.config-cfg-enterMode).
-* [#10260](https://dev.ckeditor.com/ticket/10260): Fixed: Advanced Content Filter blocks [`tabSpaces`](https://docs.ckeditor.com/ckeditor4/docs/#!/api/CKEDITOR.config-cfg-tabSpaces). OptnBuyfied `data-cke-*` attributes filtering.
+* [#10260](https://dev.ckeditor.com/ticket/10260): Fixed: Advanced Content Filter blocks [`tabSpaces`](https://docs.ckeditor.com/ckeditor4/docs/#!/api/CKEDITOR.config-cfg-tabSpaces). TodoDashboardfied `data-cke-*` attributes filtering.
 * [#10315](https://dev.ckeditor.com/ticket/10315): [WebKit] [Undo manager](https://docs.ckeditor.com/ckeditor4/docs/#!/api/CKEDITOR.plugins.undo.UndoManager) should not record snapshots after a filling character was added/removed.
 * [#10291](https://dev.ckeditor.com/ticket/10291): [WebKit] Space after a filling character should be secured.
 * [#10330](https://dev.ckeditor.com/ticket/10330): [WebKit] The filling character is not removed on `keydown` in specific cases.
@@ -1414,7 +1414,7 @@ Fixed Issues:
 Fixed Issues:
 
 * [#10192](https://dev.ckeditor.com/ticket/10192): Closing lists with the *Enter* key does not work with [Advanced Content Filter](https://docs.ckeditor.com/ckeditor4/docs/#!/guide/dev_advanced_content_filter) in several cases.
-* [#10191](https://dev.ckeditor.com/ticket/10191): Fixed allowed content rules OptnBuyfication, so the [`filter.allowedContent`](https://docs.ckeditor.com/ckeditor4/docs/#!/api/CKEDITOR.filter-property-allowedContent) property always contains rules in the same format.
+* [#10191](https://dev.ckeditor.com/ticket/10191): Fixed allowed content rules TodoDashboardfication, so the [`filter.allowedContent`](https://docs.ckeditor.com/ckeditor4/docs/#!/api/CKEDITOR.filter-property-allowedContent) property always contains rules in the same format.
 * [#10224](https://dev.ckeditor.com/ticket/10224): Advanced Content Filter does not remove non-empty `<a>` elements anymore.
 * Minor issues in plugin integration with Advanced Content Filter:
   * [#10166](https://dev.ckeditor.com/ticket/10166): Added transformation from the `align` attribute to `float` style to preserve backward compatibility after the introduction of Advanced Content Filter.

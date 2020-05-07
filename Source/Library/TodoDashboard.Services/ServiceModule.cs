@@ -29,6 +29,15 @@ namespace TodoDashboard.Services
 
             //builder.RegisterType<V1.Tdd_AdminServices>().As<AbstractTdd_AdminServices>().InstancePerDependency();
             //builder.RegisterType<V1.Tdd_ClientServices>().As<AbstractTdd_ClientServices>().InstancePerDependency();
+            builder.RegisterType<V1.MasterBarTypesServices>().As<AbstractMasterBarTypesService>().InstancePerDependency();
+            builder.RegisterType<V1.MasterDistributorsServices>().As<AbstractMasterDistributorsService>().InstancePerDependency();
+            builder.RegisterType<V1.MasterLocationsServices>().As<AbstractMasterLocationsService>().InstancePerDependency();
+            builder.RegisterType<V1.MasterServicesTypesServices>().As<AbstractMasterServicesTypesService>().InstancePerDependency();
+            builder.RegisterType<V1.MasterStatesServices>().As<AbstractMasterStatesService>().InstancePerDependency();
+            builder.RegisterType<V1.MasterTiersServices>().As<AbstractMasterTiersService>().InstancePerDependency();
+            builder.RegisterType<V1.MasterWinesServices>().As<AbstractMasterWinesService>().InstancePerDependency();
+            builder.RegisterType<V1.MasterWineVaritalsServices>().As<AbstractMasterWineVaritalsService>().InstancePerDependency();
+            builder.RegisterType<V1.MasterUserServices>().As<AbstractMasterUserService>().InstancePerDependency();
 
             base.Load(builder);
         }

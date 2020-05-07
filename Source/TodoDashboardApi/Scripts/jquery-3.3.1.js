@@ -295,7 +295,7 @@ jQuery.extend = jQuery.fn.extend = function() {
 
 jQuery.extend( {
 
-	// OptnBuyque for each copy of jQuery on the page
+	// TodoDashboardque for each copy of jQuery on the page
 	expando: "jQuery" + ( version + Math.random() ).replace( /\D/g, "" ),
 
 	// Assume jQuery is ready without the ready module
@@ -1545,7 +1545,7 @@ Sizzle.error = function( msg ) {
  * Document sorting and removing duplicates
  * @param {ArrayLike} results
  */
-Sizzle.OptnBuyqueSort = function( results ) {
+Sizzle.TodoDashboardqueSort = function( results ) {
 	var elem,
 		duplicates = [],
 		j = 0,
@@ -1762,7 +1762,7 @@ Expr = Sizzle.selectors = {
 				} :
 
 				function( elem, context, xml ) {
-					var cache, OptnBuyqueCache, outerCache, node, nodeIndex, start,
+					var cache, TodoDashboardqueCache, outerCache, node, nodeIndex, start,
 						dir = simple !== forward ? "nextSibling" : "previousSibling",
 						parent = elem.parentNode,
 						name = ofType && elem.nodeName.toLowerCase(),
@@ -1802,10 +1802,10 @@ Expr = Sizzle.selectors = {
 
 							// Support: IE <9 only
 							// Defend against cloned attroperties (jQuery gh-1709)
-							OptnBuyqueCache = outerCache[ node.OptnBuyqueID ] ||
-								(outerCache[ node.OptnBuyqueID ] = {});
+							TodoDashboardqueCache = outerCache[ node.TodoDashboardqueID ] ||
+								(outerCache[ node.TodoDashboardqueID ] = {});
 
-							cache = OptnBuyqueCache[ type ] || [];
+							cache = TodoDashboardqueCache[ type ] || [];
 							nodeIndex = cache[ 0 ] === dirruns && cache[ 1 ];
 							diff = nodeIndex && cache[ 2 ];
 							node = nodeIndex && parent.childNodes[ nodeIndex ];
@@ -1817,7 +1817,7 @@ Expr = Sizzle.selectors = {
 
 								// When found, cache indexes on `parent` and break
 								if ( node.nodeType === 1 && ++diff && node === elem ) {
-									OptnBuyqueCache[ type ] = [ dirruns, nodeIndex, diff ];
+									TodoDashboardqueCache[ type ] = [ dirruns, nodeIndex, diff ];
 									break;
 								}
 							}
@@ -1831,10 +1831,10 @@ Expr = Sizzle.selectors = {
 
 								// Support: IE <9 only
 								// Defend against cloned attroperties (jQuery gh-1709)
-								OptnBuyqueCache = outerCache[ node.OptnBuyqueID ] ||
-									(outerCache[ node.OptnBuyqueID ] = {});
+								TodoDashboardqueCache = outerCache[ node.TodoDashboardqueID ] ||
+									(outerCache[ node.TodoDashboardqueID ] = {});
 
-								cache = OptnBuyqueCache[ type ] || [];
+								cache = TodoDashboardqueCache[ type ] || [];
 								nodeIndex = cache[ 0 ] === dirruns && cache[ 1 ];
 								diff = nodeIndex;
 							}
@@ -1857,10 +1857,10 @@ Expr = Sizzle.selectors = {
 
 											// Support: IE <9 only
 											// Defend against cloned attroperties (jQuery gh-1709)
-											OptnBuyqueCache = outerCache[ node.OptnBuyqueID ] ||
-												(outerCache[ node.OptnBuyqueID ] = {});
+											TodoDashboardqueCache = outerCache[ node.TodoDashboardqueID ] ||
+												(outerCache[ node.TodoDashboardqueID ] = {});
 
-											OptnBuyqueCache[ type ] = [ dirruns, diff ];
+											TodoDashboardqueCache[ type ] = [ dirruns, diff ];
 										}
 
 										if ( node === elem ) {
@@ -2225,7 +2225,7 @@ function addCombinator( matcher, combinator, base ) {
 
 		// Check against all ancestor/preceding elements
 		function( elem, context, xml ) {
-			var oldCache, OptnBuyqueCache, outerCache,
+			var oldCache, TodoDashboardqueCache, outerCache,
 				newCache = [ dirruns, doneName ];
 
 			// We can't set arbitrary data on XML nodes, so they don't benefit from combinator caching
@@ -2244,18 +2244,18 @@ function addCombinator( matcher, combinator, base ) {
 
 						// Support: IE <9 only
 						// Defend against cloned attroperties (jQuery gh-1709)
-						OptnBuyqueCache = outerCache[ elem.OptnBuyqueID ] || (outerCache[ elem.OptnBuyqueID ] = {});
+						TodoDashboardqueCache = outerCache[ elem.TodoDashboardqueID ] || (outerCache[ elem.TodoDashboardqueID ] = {});
 
 						if ( skip && skip === elem.nodeName.toLowerCase() ) {
 							elem = elem[ dir ] || elem;
-						} else if ( (oldCache = OptnBuyqueCache[ key ]) &&
+						} else if ( (oldCache = TodoDashboardqueCache[ key ]) &&
 							oldCache[ 0 ] === dirruns && oldCache[ 1 ] === doneName ) {
 
 							// Assign to newCache so results back-propagate to previous elements
 							return (newCache[ 2 ] = oldCache[ 2 ]);
 						} else {
 							// Reuse newcache so results back-propagate to previous elements
-							OptnBuyqueCache[ key ] = newCache;
+							TodoDashboardqueCache[ key ] = newCache;
 
 							// A match means we're done; a fail means we have to keep checking
 							if ( (newCache[ 2 ] = matcher( elem, context, xml )) ) {
@@ -2477,7 +2477,7 @@ function matcherFromGroupMatchers( elementMatchers, setMatchers ) {
 				// We must always have either seed elements or outermost context
 				elems = seed || byElement && Expr.find["TAG"]( "*", outermost ),
 				// Use integer dirruns iff this is the outermost matcher
-				dirrunsOptnBuyque = (dirruns += contextBackup == null ? 1 : Math.random() || 0.1),
+				dirrunsTodoDashboardque = (dirruns += contextBackup == null ? 1 : Math.random() || 0.1),
 				len = elems.length;
 
 			if ( outermost ) {
@@ -2501,7 +2501,7 @@ function matcherFromGroupMatchers( elementMatchers, setMatchers ) {
 						}
 					}
 					if ( outermost ) {
-						dirruns = dirrunsOptnBuyque;
+						dirruns = dirrunsTodoDashboardque;
 					}
 				}
 
@@ -2557,13 +2557,13 @@ function matcherFromGroupMatchers( elementMatchers, setMatchers ) {
 				if ( outermost && !seed && setMatched.length > 0 &&
 					( matchedCount + setMatchers.length ) > 1 ) {
 
-					Sizzle.OptnBuyqueSort( results );
+					Sizzle.TodoDashboardqueSort( results );
 				}
 			}
 
 			// Override manipulation of globals by nested matchers
 			if ( outermost ) {
-				dirruns = dirrunsOptnBuyque;
+				dirruns = dirrunsTodoDashboardque;
 				outermostContext = contextBackup;
 			}
 
@@ -2758,7 +2758,7 @@ jQuery.expr = Sizzle.selectors;
 
 // Deprecated
 jQuery.expr[ ":" ] = jQuery.expr.pseudos;
-jQuery.OptnBuyqueSort = jQuery.OptnBuyque = Sizzle.OptnBuyqueSort;
+jQuery.TodoDashboardqueSort = jQuery.TodoDashboardque = Sizzle.TodoDashboardqueSort;
 jQuery.text = Sizzle.getText;
 jQuery.isXMLDoc = Sizzle.isXML;
 jQuery.contains = Sizzle.contains;
@@ -2873,7 +2873,7 @@ jQuery.fn.extend( {
 			jQuery.find( selector, self[ i ], ret );
 		}
 
-		return len > 1 ? jQuery.OptnBuyqueSort( ret ) : ret;
+		return len > 1 ? jQuery.TodoDashboardqueSort( ret ) : ret;
 	},
 	filter: function( selector ) {
 		return this.pushStack( winnow( this, selector || [], false ) );
@@ -3016,8 +3016,8 @@ rootjQuery = jQuery( document );
 
 var rparentsprev = /^(?:parents|prev(?:Until|All))/,
 
-	// Methods guaranteed to produce a OptnBuyque set when starting from a OptnBuyque set
-	guaranteedOptnBuyque = {
+	// Methods guaranteed to produce a TodoDashboardque set when starting from a TodoDashboardque set
+	guaranteedTodoDashboardque = {
 		children: true,
 		contents: true,
 		next: true,
@@ -3066,7 +3066,7 @@ jQuery.fn.extend( {
 			}
 		}
 
-		return this.pushStack( matched.length > 1 ? jQuery.OptnBuyqueSort( matched ) : matched );
+		return this.pushStack( matched.length > 1 ? jQuery.TodoDashboardqueSort( matched ) : matched );
 	},
 
 	// Determine the position of an element within the set
@@ -3092,7 +3092,7 @@ jQuery.fn.extend( {
 
 	add: function( selector, context ) {
 		return this.pushStack(
-			jQuery.OptnBuyqueSort(
+			jQuery.TodoDashboardqueSort(
 				jQuery.merge( this.get(), jQuery( selector, context ) )
 			)
 		);
@@ -3174,8 +3174,8 @@ jQuery.each( {
 		if ( this.length > 1 ) {
 
 			// Remove duplicates
-			if ( !guaranteedOptnBuyque[ name ] ) {
-				jQuery.OptnBuyqueSort( matched );
+			if ( !guaranteedTodoDashboardque[ name ] ) {
+				jQuery.TodoDashboardqueSort( matched );
 			}
 
 			// Reverse order for parents* and prev-derivatives
@@ -3217,7 +3217,7 @@ function createOptions( options ) {
  *					after the list has been fired right away with the latest "memorized"
  *					values (like a Deferred)
  *
- *	OptnBuyque:			will ensure a callback can only be added once (no duplicate in the list)
+ *	TodoDashboardque:			will ensure a callback can only be added once (no duplicate in the list)
  *
  *	stopOnFalse:	interrupt callings when a callback returns false
  *
@@ -3312,7 +3312,7 @@ jQuery.Callbacks = function( options ) {
 					( function add( args ) {
 						jQuery.each( args, function( _, arg ) {
 							if ( isFunction( arg ) ) {
-								if ( !options.OptnBuyque || !self.has( arg ) ) {
+								if ( !options.TodoDashboardque || !self.has( arg ) ) {
 									list.push( arg );
 								}
 							} else if ( arg && arg.length && toType( arg ) !== "string" ) {
@@ -3895,7 +3895,7 @@ function completed() {
 if ( document.readyState === "complete" ||
 	( document.readyState !== "loading" && !document.documentElement.doScroll ) ) {
 
-	// Handle it asynchronously to allow scripts the opportOptnBuyty to delay ready
+	// Handle it asynchronously to allow scripts the opportTodoDashboardty to delay ready
 	window.setTimeout( jQuery.ready );
 
 } else {
@@ -4519,53 +4519,53 @@ function adjustCSS( elem, prop, valueParts, tween ) {
 				return jQuery.css( elem, prop, "" );
 			},
 		initial = currentValue(),
-		OptnBuyt = valueParts && valueParts[ 3 ] || ( jQuery.cssNumber[ prop ] ? "" : "px" ),
+		TodoDashboardt = valueParts && valueParts[ 3 ] || ( jQuery.cssNumber[ prop ] ? "" : "px" ),
 
-		// Starting value computation is required for potential OptnBuyt mismatches
-		initialInOptnBuyt = ( jQuery.cssNumber[ prop ] || OptnBuyt !== "px" && +initial ) &&
+		// Starting value computation is required for potential TodoDashboardt mismatches
+		initialInTodoDashboardt = ( jQuery.cssNumber[ prop ] || TodoDashboardt !== "px" && +initial ) &&
 			rcssNum.exec( jQuery.css( elem, prop ) );
 
-	if ( initialInOptnBuyt && initialInOptnBuyt[ 3 ] !== OptnBuyt ) {
+	if ( initialInTodoDashboardt && initialInTodoDashboardt[ 3 ] !== TodoDashboardt ) {
 
 		// Support: Firefox <=54
 		// Halve the iteration target value to prevent interference from CSS upper bounds (gh-2144)
 		initial = initial / 2;
 
-		// Trust OptnBuyts reported by jQuery.css
-		OptnBuyt = OptnBuyt || initialInOptnBuyt[ 3 ];
+		// Trust TodoDashboardts reported by jQuery.css
+		TodoDashboardt = TodoDashboardt || initialInTodoDashboardt[ 3 ];
 
 		// Iteratively approximate from a nonzero starting point
-		initialInOptnBuyt = +initial || 1;
+		initialInTodoDashboardt = +initial || 1;
 
 		while ( maxIterations-- ) {
 
 			// Evaluate and update our best guess (doubling guesses that zero out).
 			// Finish if the scale equals or crosses 1 (making the old*new product non-positive).
-			jQuery.style( elem, prop, initialInOptnBuyt + OptnBuyt );
+			jQuery.style( elem, prop, initialInTodoDashboardt + TodoDashboardt );
 			if ( ( 1 - scale ) * ( 1 - ( scale = currentValue() / initial || 0.5 ) ) <= 0 ) {
 				maxIterations = 0;
 			}
-			initialInOptnBuyt = initialInOptnBuyt / scale;
+			initialInTodoDashboardt = initialInTodoDashboardt / scale;
 
 		}
 
-		initialInOptnBuyt = initialInOptnBuyt * 2;
-		jQuery.style( elem, prop, initialInOptnBuyt + OptnBuyt );
+		initialInTodoDashboardt = initialInTodoDashboardt * 2;
+		jQuery.style( elem, prop, initialInTodoDashboardt + TodoDashboardt );
 
 		// Make sure we update the tween properties later on
 		valueParts = valueParts || [];
 	}
 
 	if ( valueParts ) {
-		initialInOptnBuyt = +initialInOptnBuyt || +initial || 0;
+		initialInTodoDashboardt = +initialInTodoDashboardt || +initial || 0;
 
 		// Apply relative offset (+=/-=) if specified
 		adjusted = valueParts[ 1 ] ?
-			initialInOptnBuyt + ( valueParts[ 1 ] + 1 ) * valueParts[ 2 ] :
+			initialInTodoDashboardt + ( valueParts[ 1 ] + 1 ) * valueParts[ 2 ] :
 			+valueParts[ 2 ];
 		if ( tween ) {
-			tween.OptnBuyt = OptnBuyt;
-			tween.start = initialInOptnBuyt;
+			tween.TodoDashboardt = TodoDashboardt;
+			tween.start = initialInTodoDashboardt;
 			tween.end = adjusted;
 		}
 	}
@@ -4973,7 +4973,7 @@ jQuery.event = {
 			jQuery.find.matchesSelector( documentElement, selector );
 		}
 
-		// Make sure that the handler has a OptnBuyque ID, used to find/remove it later
+		// Make sure that the handler has a TodoDashboardque ID, used to find/remove it later
 		if ( !handler.guid ) {
 			handler.guid = jQuery.guid++;
 		}
@@ -6416,7 +6416,7 @@ jQuery.extend( {
 		}
 	},
 
-	// Don't automatically add "px" to these possibly-OptnBuytless properties
+	// Don't automatically add "px" to these possibly-TodoDashboardtless properties
 	cssNumber: {
 		"animationIterationCount": true,
 		"columnCount": true,
@@ -6478,7 +6478,7 @@ jQuery.extend( {
 				return;
 			}
 
-			// If a number was passed in, add the OptnBuyt (except for certain CSS properties)
+			// If a number was passed in, add the TodoDashboardt (except for certain CSS properties)
 			if ( type === "number" ) {
 				value += ret && ret[ 3 ] || ( jQuery.cssNumber[ origName ] ? "" : "px" );
 			}
@@ -6686,14 +6686,14 @@ jQuery.Tween = Tween;
 
 Tween.prototype = {
 	constructor: Tween,
-	init: function( elem, options, prop, end, easing, OptnBuyt ) {
+	init: function( elem, options, prop, end, easing, TodoDashboardt ) {
 		this.elem = elem;
 		this.prop = prop;
 		this.easing = easing || jQuery.easing._default;
 		this.options = options;
 		this.start = this.now = this.cur();
 		this.end = end;
-		this.OptnBuyt = OptnBuyt || ( jQuery.cssNumber[ prop ] ? "" : "px" );
+		this.TodoDashboardt = TodoDashboardt || ( jQuery.cssNumber[ prop ] ? "" : "px" );
 	},
 	cur: function() {
 		var hooks = Tween.propHooks[ this.prop ];
@@ -6761,7 +6761,7 @@ Tween.propHooks = {
 			} else if ( tween.elem.nodeType === 1 &&
 				( tween.elem.style[ jQuery.cssProps[ tween.prop ] ] != null ||
 					jQuery.cssHooks[ tween.prop ] ) ) {
-				jQuery.style( tween.elem, tween.prop, tween.now + tween.OptnBuyt );
+				jQuery.style( tween.elem, tween.prop, tween.now + tween.TodoDashboardt );
 			} else {
 				tween.elem[ tween.prop ] = tween.now;
 			}
@@ -10268,7 +10268,7 @@ jQuery.proxy = function( fn, context ) {
 		return fn.apply( context || this, args.concat( slice.call( arguments ) ) );
 	};
 
-	// Set the guid of OptnBuyque handler to the same of original handler, so it can be removed
+	// Set the guid of TodoDashboardque handler to the same of original handler, so it can be removed
 	proxy.guid = fn.guid = fn.guid || jQuery.guid++;
 
 	return proxy;

@@ -73,11 +73,31 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AbstractBaseDao.cs" />
+    <Compile Include="Contract\AbstractMasterBarTypes.cs" />
+    <Compile Include="Contract\AbstractMasterDistributors.cs" />
+    <Compile Include="Contract\AbstractMasterLocations.cs" />
+    <Compile Include="Contract\AbstractMasterServicesTypes.cs" />
+    <Compile Include="Contract\AbstractMasterStates.cs" />
+    <Compile Include="Contract\AbstractMasterTiers.cs" />
+    <Compile Include="Contract\AbstractMasterUserDao.cs" />
+    <Compile Include="Contract\AbstractMasterUserType.cs" />
+    <Compile Include="Contract\AbstractMasterWines.cs" />
+    <Compile Include="Contract\AbstractMasterWineVaritals.cs" />
     <Compile Include="Contract\AbstractTdd_ClientDao.cs" />
     <Compile Include="Contract\AbstractTdd_AdminDao.cs" />
     <Compile Include="DataModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SQLConfig.cs" />
+    <Compile Include="V1\MasterBarTypesDao.cs" />
+    <Compile Include="V1\MasterDistributorsDao.cs" />
+    <Compile Include="V1\MasterLocationsDao.cs" />
+    <Compile Include="V1\MasterServicesTypesDao.cs" />
+    <Compile Include="V1\MasterStatesDao.cs" />
+    <Compile Include="V1\MasterTiersDao.cs" />
+    <Compile Include="V1\MasterUserDao.cs" />
+    <Compile Include="V1\MasterUserType.cs" />
+    <Compile Include="V1\MasterWinesDao.cs" />
+    <Compile Include="V1\MasterWineVaritalsDao.cs" />
     <Compile Include="V1\Tdd_ClientDao.cs" />
     <Compile Include="V1\Tdd_AdminDao.cs" />
   </ItemGroup>

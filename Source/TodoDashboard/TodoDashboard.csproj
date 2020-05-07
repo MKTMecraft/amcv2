@@ -210,6 +210,9 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AuthenticationController.cs" />
+    <Compile Include="Controllers\WineController.cs" />
+    <Compile Include="Controllers\MasterController.cs" />
+    <Compile Include="Controllers\LocationController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -245,7 +248,6 @@
     <Content Include="assets\css\main.css" />
     <Content Include="assets\fonts\simple-Line-Icons.svg" />
     <Content Include="assets\fonts\weathericons-regular-webfont.svg" />
-    <Content Include="assets\football_best_goals.mp4" />
     <Content Include="assets\images\auth_bg3.jpg" />
     <Content Include="assets\images\auth_bg1.jpg" />
     <Content Include="assets\images\blog\05-img.jpg" />
@@ -3486,8 +3488,13 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Profile\ChangePassword.cshtml" />
     <Content Include="Views\Users\Index.cshtml" />
-    <Content Include="Views\Home\AddDrink.cshtml" />
-    <Content Include="Views\Home\ViewDrink.cshtml" />
+    <Content Include="Views\Master\WineVaritals.cshtml" />
+    <Content Include="Views\Master\BarTypes.cshtml" />
+    <Content Include="Views\Master\ServiceTypes.cshtml" />
+    <Content Include="Views\Master\Tiers.cshtml" />
+    <Content Include="Views\Master\Distributors.cshtml" />
+    <Content Include="Views\Location\Index.cshtml" />
+    <Content Include="Views\Wine\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Library\TodoDashboard.Common\TodoDashboard.Common.csproj">

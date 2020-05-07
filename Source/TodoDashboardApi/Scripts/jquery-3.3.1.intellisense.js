@@ -404,7 +404,7 @@ intellisense.annotate(jQuery, {
     ///   <returns type="String" />
     /// </signature>
   },
-  'OptnBuyque': function() {
+  'TodoDashboardque': function() {
     /// <signature>
     ///   <summary>Sorts an array of DOM elements, in place, with the duplicates removed. Note that this only works on arrays of DOM elements, not strings or numbers.</summary>
     ///   <param name="array" type="Array">The Array of DOM elements.</param>
@@ -1470,7 +1470,7 @@ intellisense.annotate(jQuery.fn, {
   'height': function() {
     /// <signature>
     ///   <summary>Set the CSS height of every matched element.</summary>
-    ///   <param name="value" type="">An integer representing the number of pixels, or an integer with an optional OptnBuyt of measure appended (as a string).</param>
+    ///   <param name="value" type="">An integer representing the number of pixels, or an integer with an optional TodoDashboardt of measure appended (as a string).</param>
     ///   <returns type="jQuery" />
     /// </signature>
     /// <signature>
@@ -2595,7 +2595,7 @@ intellisense.annotate(jQuery.fn, {
   'width': function() {
     /// <signature>
     ///   <summary>Set the CSS width of each element in the set of matched elements.</summary>
-    ///   <param name="value" type="">An integer representing the number of pixels, or an integer along with an optional OptnBuyt of measure appended (as a string).</param>
+    ///   <param name="value" type="">An integer representing the number of pixels, or an integer along with an optional TodoDashboardt of measure appended (as a string).</param>
     ///   <returns type="jQuery" />
     /// </signature>
     /// <signature>

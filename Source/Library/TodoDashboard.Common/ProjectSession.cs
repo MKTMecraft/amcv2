@@ -514,6 +514,26 @@ namespace TodoDashboard.Common
             }
         }
 
+        public static int UserType
+        {
+            get
+            {
+                if (HttpContext.Current.Session["UserType"] == null)
+                {
+                    return 0;
+                }
+                else
+                {
+                    return ConvertTo.Integer(HttpContext.Current.Session["UserType"]);
+                }
+            }
+
+            set
+            {
+                HttpContext.Current.Session["UserType"] = value;
+            }
+        }
+
         public static string Menu
         {
             get

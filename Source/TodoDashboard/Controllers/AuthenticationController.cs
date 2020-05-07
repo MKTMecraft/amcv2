@@ -16,12 +16,13 @@ namespace TodoDashboard.Controllers
     public class AuthenticationController : Controller
     {
         #region Fields
-        
+        private readonly AbstractMasterUserService abstractMasterUserService;
         #endregion
 
         #region Ctor
-        public AuthenticationController()
+        public AuthenticationController(AbstractMasterUserService abstractMasterUserService)
         {
+            this.abstractMasterUserService = abstractMasterUserService;
         }
         #endregion
 
@@ -33,7 +34,49 @@ namespace TodoDashboard.Controllers
             return View();
         }
 
-        
+
+        [HttpPost]
+        [ActionName(Actions.SignIn)]
+        public JsonResult SignIn(string email, string password)
+        {
+            MasterUser tdd_Client = new MasterUser();
+            tdd_Client.Email = email;
+            tdd_Client.Password = password;
+            
+            SuccessResult<AbstractMasterUser> result = abstractMasterUserService.MasterUser_Login(tdd_Client);
+            if (result != null && result.Code == 200 && result.Item != null)
+            {
+                Session.Clear();
+                ProjectSession.AdminUserID = result.Item.Id;
+                ProjectSession.UserName = result.Item.Name;
+                ProjectSession.Email = result.Item.Email;
+                ProjectSession.UserType = result.Item.UserType;
+
+                if(ProjectSession.UserType == 1)
+                {
+                    ProjectSession.AdminRoleName = "Admin";
+                }
+                else if(ProjectSession.UserType == 2)
+                {
+                    ProjectSession.AdminRoleName = "Manager";
+                }
+                
+                HttpCookie cookie = new HttpCookie("ClientLogin");
+                cookie.Values.Add("Id", result.Item.Id.ToString());
+                cookie.Values.Add("UserName", result.Item.Name.ToString());
+                cookie.Values.Add("UserType", result.Item.UserType.ToString());
+                cookie.Expires = DateTime.Now.AddDays(30);
+                Response.Cookies.Add(cookie);
+                result.Item = null;
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+
         [AllowAnonymous]
         [ActionName(Actions.Logout)]
         public ActionResult Logout()

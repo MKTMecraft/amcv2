@@ -64,9 +64,29 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Contract\AbstarctMasterBarTypes.cs" />
+    <Compile Include="Contract\AbstarctMasterDistributors.cs" />
+    <Compile Include="Contract\AbstarctMasterLocations.cs" />
+    <Compile Include="Contract\AbstarctMasterServicesTypes.cs" />
+    <Compile Include="Contract\AbstarctMasterStates.cs" />
+    <Compile Include="Contract\AbstarctMasterTiers.cs" />
+    <Compile Include="Contract\AbstarctMasterUser.cs" />
+    <Compile Include="Contract\AbstarctMasterUserType.cs" />
+    <Compile Include="Contract\AbstarctMasterWines.cs" />
+    <Compile Include="Contract\AbstarctMasterWineVaritals.cs" />
     <Compile Include="Contract\AbstractTdd_Client.cs" />
     <Compile Include="Contract\AbstractTdd_Admin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="V1\MasterBarTypes.cs" />
+    <Compile Include="V1\MasterDistributors.cs" />
+    <Compile Include="V1\MasterLocations.cs" />
+    <Compile Include="V1\MasterServicesTypes.cs" />
+    <Compile Include="V1\MasterStates.cs" />
+    <Compile Include="V1\MasterTiers.cs" />
+    <Compile Include="V1\MasterUser.cs" />
+    <Compile Include="V1\MasterUserType.cs" />
+    <Compile Include="V1\MasterWines.cs" />
+    <Compile Include="V1\MasterWineVaritals.cs" />
     <Compile Include="V1\Tdd_Client.cs" />
     <Compile Include="V1\Tdd_Admin.cs" />
   </ItemGroup>

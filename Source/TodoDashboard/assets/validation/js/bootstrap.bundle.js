@@ -2624,12 +2624,12 @@
    */
   function setStyles(element, styles) {
     Object.keys(styles).forEach(function (prop) {
-      var OptnBuyt = '';
-      // add OptnBuyt if the value is numeric and is one of the following
+      var TodoDashboardt = '';
+      // add TodoDashboardt if the value is numeric and is one of the following
       if (['width', 'height', 'top', 'right', 'bottom', 'left'].indexOf(prop) !== -1 && isNumeric(styles[prop])) {
-        OptnBuyt = 'px';
+        TodoDashboardt = 'px';
       }
-      element.style[prop] = styles[prop] + OptnBuyt;
+      element.style[prop] = styles[prop] + TodoDashboardt;
     });
   }
 
@@ -3163,11 +3163,11 @@
   }
 
   /**
-   * Converts a string containing value + OptnBuyt into a px value number
+   * Converts a string containing value + TodoDashboardt into a px value number
    * @function
    * @memberof {modifiers~offset}
    * @private
-   * @argument {String} str - Value + OptnBuyt string
+   * @argument {String} str - Value + TodoDashboardt string
    * @argument {String} measurement - `height` or `width`
    * @argument {Object} popperOffsets
    * @argument {Object} referenceOffsets
@@ -3175,19 +3175,19 @@
    * Value in pixels, or original string if no values were extracted
    */
   function toValue(str, measurement, popperOffsets, referenceOffsets) {
-    // separate value from OptnBuyt
+    // separate value from TodoDashboardt
     var split = str.match(/((?:\-|\+)?\d*\.?\d*)(.*)/);
     var value = +split[1];
-    var OptnBuyt = split[2];
+    var TodoDashboardt = split[2];
 
     // If it's not a number it's an operator, I guess
     if (!value) {
       return str;
     }
 
-    if (OptnBuyt.indexOf('%') === 0) {
+    if (TodoDashboardt.indexOf('%') === 0) {
       var element = void 0;
-      switch (OptnBuyt) {
+      switch (TodoDashboardt) {
         case '%p':
           element = popperOffsets;
           break;
@@ -3199,18 +3199,18 @@
 
       var rect = getClientRect(element);
       return rect[measurement] / 100 * value;
-    } else if (OptnBuyt === 'vh' || OptnBuyt === 'vw') {
+    } else if (TodoDashboardt === 'vh' || TodoDashboardt === 'vw') {
       // if is a vh or vw, we calculate the size based on the viewport
       var size = void 0;
-      if (OptnBuyt === 'vh') {
+      if (TodoDashboardt === 'vh') {
         size = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
       } else {
         size = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
       }
       return size / 100 * value;
     } else {
-      // if is an explicit pixel OptnBuyt, we get rid of the OptnBuyt and keep the value
-      // if is an implicit OptnBuyt, it's px, and we return just the value
+      // if is an explicit pixel TodoDashboardt, we get rid of the TodoDashboardt and keep the value
+      // if is an implicit TodoDashboardt, it's px, and we return just the value
       return value;
     }
   }
@@ -3255,9 +3255,9 @@
     var splitRegex = /\s*,\s*|\s+/;
     var ops = divider !== -1 ? [fragments.slice(0, divider).concat([fragments[divider].split(splitRegex)[0]]), [fragments[divider].split(splitRegex)[1]].concat(fragments.slice(divider + 1))] : [fragments];
 
-    // Convert the values with OptnBuyts to absolute pixels to allow our computations
+    // Convert the values with TodoDashboardts to absolute pixels to allow our computations
     ops = ops.map(function (op, index) {
-      // Most of the OptnBuyts rely on the orientation of the popper
+      // Most of the TodoDashboardts rely on the orientation of the popper
       var measurement = (index === 1 ? !useHeight : useHeight) ? 'height' : 'width';
       var mergeWithPrevious = false;
       return op
@@ -3546,12 +3546,12 @@
     /**
      * The `offset` modifier can shift your popper on both its axis.
      *
-     * It accepts the following OptnBuyts:
-     * - `px` or OptnBuyt-less, interpreted as pixels
+     * It accepts the following TodoDashboardts:
+     * - `px` or TodoDashboardt-less, interpreted as pixels
      * - `%` or `%r`, percentage relative to the length of the reference element
      * - `%p`, percentage relative to the length of the popper element
-     * - `vw`, CSS viewport width OptnBuyt
-     * - `vh`, CSS viewport height OptnBuyt
+     * - `vw`, CSS viewport width TodoDashboardt
+     * - `vh`, CSS viewport height TodoDashboardt
      *
      * For length is intended the main axis relative to the placement of the popper.<br />
      * This means that if the placement is `top` or `bottom`, the length will be the
@@ -3561,7 +3561,7 @@
      * as `String` divided by a comma or one (or more) white spaces.<br />
      * The latter is a deprecated method because it leads to confusion and will be
      * removed in v2.<br />
-     * Additionally, it accepts additions and subtractions between different OptnBuyts.
+     * Additionally, it accepts additions and subtractions between different TodoDashboardts.
      * Note that multiplications and divisions aren't supported.
      *
      * Valid examples are:

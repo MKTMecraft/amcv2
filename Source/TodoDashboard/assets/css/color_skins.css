@@ -316,81 +316,81 @@
 
 .theme-orange ::selection {
     color: #fff;
-    background: #007bff
+    background: #000
 }
 
 .theme-orange .page-loader-wrapper {
-    background: #007bff
+    background: #000
 }
 
 .theme-orange #left-sidebar .nav-tabs .nav-link.active {
-    color: #007bff
+    color: #000
 }
 
 .theme-orange:before, .theme-orange:after {
-    background: #007bff
+    background: #000
 }
 
 .theme-orange #wrapper:before, .theme-orange #wrapper:after {
-    background: #007bff
+    background: #000
 }
 
 .theme-orange .sidebar-nav .metismenu > li.active > a {
-    border-left-color: #007bff
+    border-left-color: #000
 }
 
 .theme-orange .navbar-nav ul.menu-icon {
-    background: #007bff
+    background: #000
 }
 
 .theme-orange .fancy-checkbox input[type="checkbox"]:checked + span:before {
-    background: #007bff;
-    border-color: #007bff
+    background: #000;
+    border-color: #000
 }
 
 .theme-orange .chat-widget li.right .chat-info {
-    background: #007bff;
+    background: #000;
     color: #fff
 }
 
     .theme-orange .chat-widget li.right .chat-info:before {
-        border-left: 10px solid #007bff
+        border-left: 10px solid #000
     }
 
 .theme-orange .fc .fc-view-container .fc-view.fc-basic-view > table > thead tr th.fc-widget-header {
-    background: #007bff;
-    border-color: #007bff;
+    background: #000;
+    border-color: #000;
     color: #fff
 }
 
 .theme-orange .blog-page .single_post .footer .stats li a:hover {
-    color: #007bff
+    color: #000
 }
 
 .theme-orange .auth-main .btn-primary {
-    background: #007bff;
-    border-color: #007bff
+    background: #000;
+    border-color: #000;
 }
 
 .theme-orange .sidebar-nav .metismenu > li i {
-    color: #007bff
+    color: #000
 }
 
 .theme-orange .right_chat li a:hover .media-object {
-    border-color: #007bff
+    border-color: #000
 }
 
 .theme-orange .chat_app .chat .chat-history .other-message {
-    background: #007bff;
+    background: #000;
     color: #fff
 }
 
     .theme-orange .chat_app .chat .chat-history .other-message::after {
-        border-bottom-color: #007bff
+        border-bottom-color: #000
     }
 
 .theme-orange .chat_app .people_list .chat-list li.active, .theme-orange .chat_app .people_list .chat-list li:hover {
-    border-color: #007bff
+    border-color: #000
 }
 
 .theme-blush ::selection {

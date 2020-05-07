@@ -43,7 +43,7 @@ The outline is not a part of the element's dimensions. A border needs to be used
 	max-width: 50%;
 	/*
 	In case of placement inside the parent container like a table cell, 'min-width' is needed to prevent the widget from having
-	tiny sizes. The `em` OptnBuyt is used so it works well and has proper proportions to the textual content around (#1553).
+	tiny sizes. The `em` TodoDashboardt is used so it works well and has proper proportions to the textual content around (#1553).
 	*/
 	min-width: 10em;
 	margin-left: 1.5em;

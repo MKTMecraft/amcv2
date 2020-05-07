@@ -77,7 +77,7 @@ namespace TodoDashboardApi.Areas.HelpPage.ModelDescriptions
             { typeof(Double), "decimal number" },
             { typeof(Decimal), "decimal number" },
             { typeof(String), "string" },
-            { typeof(Guid), "globally OptnBuyque identifier" },
+            { typeof(Guid), "globally TodoDashboardque identifier" },
             { typeof(TimeSpan), "time interval" },
             { typeof(DateTime), "date" },
             { typeof(DateTimeOffset), "date" },
@@ -130,7 +130,7 @@ namespace TodoDashboardApi.Areas.HelpPage.ModelDescriptions
                         String.Format(
                             CultureInfo.CurrentCulture,
                             "A model description could not be created. Duplicate model name '{0}' was found for types '{1}' and '{2}'. " +
-                            "Use the [ModelName] attribute to change the model name for at least one of the types so that it has a OptnBuyque name.",
+                            "Use the [ModelName] attribute to change the model name for at least one of the types so that it has a TodoDashboardque name.",
                             modelName,
                             modelDescription.ModelType.FullName,
                             modelType.FullName));

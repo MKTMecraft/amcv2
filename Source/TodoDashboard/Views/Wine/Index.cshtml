@@ -1,0 +1,518 @@
+﻿@{
+    ViewBag.Title = "Wine";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using TodoDashboard.Common;
+@using TodoDashboard.Pages;
+@using TodoDashboard.Infrastructure;
+@Html.AntiForgeryToken()
+
+<style>
+    .checkbox {
+        width: 25px;
+        height: 25px;
+    }
+
+    
+    thead {
+        background: #000;
+        color: white;
+    }
+
+    .has-error .checkbox, .has-error .checkbox-inline, .has-error .control-label, .has-error .form-control-feedback, .has-error .help-block, .has-error .radio, .has-error .radio-inline, .has-error.checkbox label, .has-error.checkbox-inline label, .has-error.radio label, .has-error.radio-inline label {
+        color: #e73d4a
+    }
+
+    .has-error .form-control {
+        border-color: #e73d4a;
+        -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+        box-shadow: inset 0 1px 1px rgba(0,0,0,.075)
+    }
+
+        .has-error .form-control:focus {
+            border-color: #d71b29;
+            -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 6px #f2989f;
+            box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 6px #f2989f
+        }
+
+    .has-error .input-group-addon {
+        color: #e73d4a;
+        border-color: #e73d4a;
+        background-color: #fbe1e3
+    }
+
+     .addDelete {
+        color: black !important;
+        background: #e9e9e9 !important;
+    }
+
+    .hideDelete {
+        display:none !important;
+    }
+</style>
+
+<div class="block-header">
+    <div class="row clearfix">
+        <div class="col-lg-6 col-md-8 col-sm-12">
+            <h2 id="headingtext"><a href="javascript:void(0);" class="btn btn-xs btn-link btn-toggle-fullwidth"><i class="fa fa-arrow-left"></i></a> Add New Wine</h2>
+            <ul class="breadcrumb">
+                <li class="breadcrumb-item"><a href="@Url.Action(Actions.Index,Controllers.Home,new { Area=""})"><i class="icon-home"></i></a>
+                <li class="breadcrumb-item active" id="breadcrum">Add New Wine</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="row clearfix">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="card">
+            <div class="body">
+                <form class="form-auth-small" method="post" id="frmuser">
+                    <div class="row clearfix">
+                        <input type="hidden" id="Id" />
+
+                        @if (ViewBag.Id == 0)
+                        {
+                            <div class="col-md-4 col-sm-12">
+                                <label>Wine Name</label>
+                                <div class="form-group">
+                                    <input type="text" id="WineName" name="WineName" class="form-control" placeholder="Enter Wine Name *">
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <input type="text" id="WineName" name="WineName" class="form-control" placeholder="Enter Wine Name *" style="display:none;">
+                        }
+
+                        <div class="col-md-4 col-sm-12">
+                            <label>Varietal</label>
+                            <div class="form-group">
+                                @Html.Raw(@Html.DropDownList("MasterVarietalId", (IEnumerable<SelectListItem>)ViewBag.WineVaritals, "Select Wine Varital", new { @Id = "MasterVarietalId", @class = "form-control show-tick ms select2", disabled = "disabled" }).ToString().Replace("disabled=\"disabled\"", (ProjectSession.UserType == 1 ? "" : "disabled=\"disabled\"")))
+                            </div>
+                        </div>
+
+                        @if (ProjectSession.UserType == 1)
+                        {
+                            <div class="col-md-4 col-sm-12">
+                                <label>Calories</label>
+                                <div class="form-group">
+                                    <input type="text" id="Calories" name="Calories" class="form-control" placeholder="Enter Calories *">
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="col-md-4 col-sm-12">
+                                <label>Id</label>
+                                <div class="form-group">
+                                    <input type="text" id="Calories" name="Calories" class="form-control" placeholder="Enter Calories *" disabled>
+                                </div>
+                            </div>
+                        }
+
+                        <div class="col-md-6 col-sm-12">
+                            <label>Distributor</label>
+                            <div class="form-group">
+                                @Html.Raw(@Html.DropDownList("MasterDistributorId", (IEnumerable<SelectListItem>)ViewBag.Distributors, "Select Distributor", new { @Id = "MasterDistributorId", @class = "form-control show-tick ms select2", disabled = "disabled" }).ToString().Replace("disabled=\"disabled\"", (ProjectSession.UserType == 1 ? "" : "disabled=\"disabled\"")))
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-12">
+                            <label>Tier</label>
+                            <div class="form-group">
+                                @Html.Raw(@Html.DropDownList("TierId", (IEnumerable<SelectListItem>)ViewBag.Tiers, "Select Tier", new { @Id = "TierId", @class = "form-control show-tick ms select2", disabled = "disabled" }).ToString().Replace("disabled=\"disabled\"", (ProjectSession.UserType == 1 ? "" : "disabled=\"disabled\"")))
+                            </div>
+                        </div>
+
+                        <div class="header">
+                            <h3>Location Listing </h3>
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="portlet light bordered">
+                                <div class="portlet-title">
+                                    <input type="hidden" id="checklog" />
+                                    <div class="tools col-md-12"></div>
+                                </div>
+                                <div class="portlet-body" id="divCustomerTable">
+                                    <table class="table table-striped table-bordered table-hover" id="CustomerTable"></table>
+                                </div>
+                            </div>
+                        </div>
+
+                        @if (ProjectSession.UserType == 1)
+                        {
+                            <div class="col-12" style="text-align:right;">
+                                <input type="submit" id="userSave" class="btn btn-primary" style="color: white !important;background: #138496 !important;" value="Save">
+                                <button class="btn btn-primary loading" type="button" disabled style="display:none;float:right;">
+                                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                    Saving...
+                                </button>
+                                <a href="@Url.Action(Actions.Index,Controllers.Home,new { Area = "",page="wine"})" class="btn btn-secondary closeBtn" id="userClose">Cancel</a>
+                            </div>
+                        }
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section dashboardscripts{
+    <script src="~/Scripts/jquery-ui.min.js"></script>
+    <script src="~/Scripts/datatable.js"></script>
+    <script src="~/Scripts/datatables.min.js"></script>
+    <script src="~/Scripts/datatables.bootstrap.js"></script>
+}
+
+@section Scripts {
+    <script>
+        jQuery(document).ready(function () {
+            $("#Id").val(@ViewBag.Id);
+            if (@ViewBag.Id > 0) {
+                GetById();
+            }
+            FormuserValidation.init();
+            TableDatatablesColreorder.init();
+        });
+
+
+    var FormuserValidation = function () {
+
+            // basic validation
+            var handleValidation = function () {
+
+                var form1 = $('#frmuser');
+                var error1 = $('.alert-danger', form1);
+
+                jQuery.validator.addMethod("lettersonly", function(value, element) 
+                {
+                return this.optional(element) || /^[a-z ]+$/i.test(value);
+                }, "Text Field Only");
+
+                form1.validate({
+                    errorElement: 'span', //default input error message container
+                    errorClass: 'help-block help-block-error', // default input error message class
+                    focusInvalid: false, // do not focus the last invalid input
+                    ignore: "",  // validate all fields including form hidden input
+                    rules: {
+                        WineName: {
+                            required: true,
+                            lettersonly : true
+                        },
+                        MasterVarietalId: {
+                            required: true,
+                        },
+                        Calories: {
+                            required: true,
+                             number : true
+                        },
+                         MasterDistributorId: {
+                            required: true,
+                        },
+                        TierId: {
+                            required: true,
+                        }
+                    },
+
+                    invalidHandler: function (event, validator) { //display error alert on form submit
+                        //success1.hide();
+                        error1.show();
+                        App.scrollTo(error1, -200);
+                    },
+
+                    errorPlacement: function (error, element) { // render error placement for each input type
+                        var cont = $(element).parent('.input-group');
+                        if (cont.size() > 0) {
+                            cont.after(error);
+                        } else {
+                            element.after(error);
+                        }
+                    },
+
+                    highlight: function (element) { // hightlight error inputs
+                        $(element)
+                            .closest('.form-group').addClass('has-error'); // set error class to the control group
+                    },
+
+                    unhighlight: function (element) { // revert the change done by hightlight
+                        $(element)
+                            .closest('.form-group').removeClass('has-error'); // set error class to the control group
+                    },
+
+                    success: function (label) {
+                        label
+                            .closest('.form-group').removeClass('has-error'); // set success class to the control group
+                    },
+
+                    submitHandler: function (form) {
+                        Adituser();
+                    }
+                });
+            }
+            return {
+                //main function to initiate the module
+                init: function () {
+                    handleValidation();
+                }
+            };
+        }();
+
+        var TableDatatablesColreorder = function () {
+
+    var initTable1 = function () {
+        var table = $('#CustomerTable');
+
+        var oTable = table.dataTable({
+            "stateSave": true,
+            "autoWidth": false,
+            "paging": true,
+            // Internationalisation. For more info refer to http://datatables.net/manual/i18n
+            "language": {
+                "aria": {
+                    "sortAscending": ": activate to sort column ascending",
+                    "sortDescending": ": activate to sort column descending"
+                },
+                "emptyTable": "No data available in table",
+                "info": "Showing _START_ to _END_ of _TOTAL_ entries",
+                "infoEmpty": "No entries found",
+                "infoFiltered": "(filtered1 from _MAX_ total entries)",
+                "lengthMenu": "_MENU_ entries",
+                "search": "Search:",
+                "zeroRecords": "No matching records found"
+            },
+            "pageLength": 1000,
+            "processing": true,
+            "serverSide": true,
+            "ajax": {
+                async: true,
+                url: '@Url.Action(Actions.BindLocationData, Controllers.Wine, new { area =""})',
+                type: "post",
+                data: BuildSearchCriteria()
+            },
+            "columns": [
+               {
+                    "title": "<input type='checkbox' id='select_all' class='checkbox'>", "data": "",
+                    "render": function (data, type, row) {
+                        if (row["IsChecked"]) {
+                            return '<input type="checkbox" value="' + row["Id"] +'" class="md-check child checkbox" checked>';
+                        } else {
+                            return '<input type="checkbox" value="' + row["Id"] +'" class="md-check child checkbox">';
+                        }
+                    }
+                    , "orderable": false, "width": "1%"
+                },
+                { "title": "Id", "data": "LocationId", "orderable": false, "width": "5%" },
+                { "title": "Location", "data": "LocationName", "orderable": false, "width": "5%" },
+                { "title": "State", "data": "StateName", "orderable": false, "width": "5%" },
+                { "title": "Service Type", "data": "MasterServiceTypeName", "orderable": false, "width": "5%" },
+                { "title": "Bar Type", "data": "MasterBarTypeName", "orderable": false, "width": "5%" },
+                {
+                    "title": @ProjectSession.UserType == 1 ? "Edit": "View","class":"actionIcon",
+                    "data": null,
+                    "render": function (data, type, row) {
+                        var appendstring = '';
+                        if (@ProjectSession.UserType == 1) {
+                            appendstring += '<a  href="@Url.Action(Actions.Index,Controllers.Location)?Id='+row["Id"]+'" class="btn btn-sm btn-outline-secondary" title="Edit Details"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;';
+                        } else {
+                            appendstring += '<a href="@Url.Action(Actions.Index,Controllers.Location)?Id='+row["Id"]+'" class="btn btn-sm btn-outline-secondary" title="View Details"><i class="fa fa-eye"></i></a>&nbsp;&nbsp;';
+                        }
+
+                        return appendstring;
+                    },
+                    "width": "3%",
+                    "orderable": false,
+                    "class": "action-icons"
+                }
+            ],
+            // setup buttons extentension: http://datatables.net/extensions/buttons/
+            "buttons": [
+                  {
+                    text: 'Delete Selected Locations',
+                    className: @ProjectSession.UserType == 1 && @ViewBag.Id > 0 ? 'addDelete':'hideDelete',
+                    action: function (e, dt, node, config) {
+                        //dt.ajax.reload();
+                        ConfirmMessage();
+                    }
+                }
+            ],
+
+            // setup responsive extension: http://datatables.net/extensions/responsive/
+            responsive: true,
+
+            "lengthMenu": [
+                [5, 10, 15, 20,1000],
+                [5, 10, 15, 20,1000] // change per page values here
+            ],
+            // set the initial value
+
+            "dom": "<'row' <'col-md-12'B>><'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r><'table-scrollable't><'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>", // horizobtal scrollable datatable
+
+            // Uncomment below line("dom" parameter) to fix the dropdown overflow issue in the datatable cells. The default datatable layout
+            // setup uses scrollable div(table-scrollable) with overflow:auto to enable vertical scroll(see: assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js).
+            // So when dropdowns used the scrollable div should be removed.
+            //"dom": "<'row' <'col-md-12'T>><'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r>t<'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>",
+        });
+    }
+
+    return {
+
+        //main function to initiate the module
+        init: function () {
+            if ($.fn.DataTable.isDataTable("#CustomerTable")) {
+                $('#CustomerTable').dataTable().fnDestroy();
+                $('#divCustomerTable').html('<table class="table table-striped" width="100%" id="CustomerTable"></table>');
+            }
+            initTable1();
+        }
+    };
+
+}();
+
+    function BuildSearchCriteria() {
+    try {
+        var param = {};
+         param["WineId"] = @ViewBag.Id;
+         return addRequestVerificationToken(param);
+    } catch (e) { }
+    }
+
+    function addRequestVerificationToken(data) {
+       data.__RequestVerificationToken = $('input[name=__RequestVerificationToken]').val();
+       return data;
+        }
+
+    function ConfirmMessage() {
+            swal({
+                title: "Are you sure ?",
+                text: "You will be deleting the selected locations from wine !",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#dc3545",
+                confirmButtonText: "Yes, do it !",
+                closeOnConfirm: false
+            }, function () {
+                    Delete();
+            });
+    }
+
+    function Delete() {
+        getCheckedBoxesData();
+        $.ajax({
+            type: 'POST',
+            url: "@Url.Action(Actions.DeleteSelectedLocationsFromWine,Controllers.Wine)",
+            async: false,
+            data: ({ WineId: $("#Id").val(), LocationIds: $("#checklog").val() }),
+            dataType: 'json',
+            success: function (response) {
+                if (response == "200") {
+                    swal("Great!", "Selected Locations Deleted", "success");
+                    TableDatatablesColreorder.init();
+                } else {
+                    swal("Oops!", response.Message, "error");
+                    CloseUpsert();
+                }
+            },
+            error: function (response) {
+                swal("Opps!", "An error occured ! Please try again.", "error");
+                  }
+            });
+    }
+
+    function Adituser() {
+        $("#userSave").hide();
+        $("#userClose").hide();
+        $(".loading").show();
+        getCheckedBoxesData();
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action(Actions.Upsert,Controllers.Wine)',
+            data: ({Id: $("#Id").val(),WineName: $("#WineName").val(),MasterVarietalId: $("#MasterVarietalId").val(),Calories: $("#Calories").val(),MasterDistributorId: $("#MasterDistributorId").val(),TierId: $("#TierId").val(),LocationIds:$("#checklog").val()}),
+            dataType: 'json',
+            success: function (response) {
+                if (response.Code == 200) {
+                    swal("Great!", "Details Saved !", "success");
+                    var millisecondsToWait = 500;
+                    setTimeout(function () {
+                        window.location.href= '@Url.Action(Actions.Index, Controllers.Home, new { Area = "",page="wine" })';
+                    }, millisecondsToWait);
+                }
+                else {
+                    swal("Error !", response.Message, "error");
+                    $(".loading").hide();
+                    $("#userSave").show();
+                    $("#userClose").show();
+                }
+            },
+            error: function (error) {
+                $(".loading").hide();
+                $("#userSave").show();
+                $("#userClose").show();
+
+                //show close button
+            }
+        });
+            }
+
+        function GetById() {
+             $.ajax({
+            type: "POST",
+            url: '@Url.Action(Actions.GetById,Controllers.Wine)',
+            data: ({Id: $("#Id").val()}),
+            dataType: 'json',
+                 success: function (response) {
+                     if (response.Code == 200 && response.Item != null) {
+                         $("#WineName").val(response.Item.WineName);
+                         $("#headingtext").text(response.Item.WineName);
+                         $("#breadcrum").text(response.Item.WineName)
+
+                         $("#MasterVarietalId").val(response.Item.MasterVarietalId);
+                         $("#Calories").val(response.Item.Calories);
+                         $("#MasterDistributorId").val(response.Item.MasterDistributorId);
+                         $("#TierId").val(response.Item.TierId);
+                 }
+                 else {
+                     swal("Error !", "An error occured. Try Again", "error");
+                 }
+            },
+            error: function (error) {
+               swal("Error !", "An error occured. Try Again", "error");
+            }
+        });
+        }
+
+        $(function () {
+        $('#select_all').on('change', function () {
+            $('.child').prop('checked', this.checked);
+        });
+        $('.child').on('change', function () {
+            $('#select_all').prop('checked', $('.child:checked').length === $('.child').length);
+        });
+    });
+
+        function getCheckedBoxesData() {
+        var data = "";
+        $('.child:checked').each(function () {
+            if ($(".md-check").is(":checked")) {
+                data += $(this).closest('tr').find('.child').val() + ",";
+            }
+            $("#checklog").val(data);
+        });
+    }
+
+    </script>
+    <script src="~/assets/validation/js/jquery-ui.min.js"></script>
+    <script src="~/assets/validation/js/app.min.js"></script>
+    <script src="~/assets/validation/js/ui-modals.min.js"></script>
+    <script src="~/assets/validation/js/jquery.validate.min.js"></script>
+    <script src="~/assets/validation/js/additional-methods.min.js"></script>
+    <script src="~/assets/validation/js/toastr.min.js"></script>
+    <script src="~/assets/validation/js/ui-toastr.min.js"></script>
+    <script src="~/assets/vendor/dropify/js/dropify.min.js"></script>
+    <script src="~/assets/vendor/sweetalert/sweetalert.min.js"></script> <!-- SweetAlert Plugin Js -->
+    <script src="~/assets/js/pages/forms/dropify.js"></script>
+    <script src="~/assets/js/pages/ui/dialogs.js"></script>
+}

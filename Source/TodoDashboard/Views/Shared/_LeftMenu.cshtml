@@ -1,10 +1,10 @@
 ﻿@using TodoDashboard.Common;
 @using TodoDashboard.Pages;
 
-    <ul class="main-menu metismenu">
+    @*<ul class="main-menu metismenu">
         <li class="items"><a href="@Url.Action(Actions.Index,Controllers.Home,new { Area=""})" id="dashboard"><i class="icon-speedometer"></i><span>Home</span></a></li>
         <li class="items"><a href="@Url.Action(Actions.Index,Controllers.Users,new { Area=""})" id="clients"><i class="icon-users"></i><span>Users</span></a></li>
-        @*@if (ProjectSession.AdminRoleID == 1)
+        @if (ProjectSession.AdminRoleID == 1)
         {
             <li class="items"><a href="@Url.Action(Actions.Index,Controllers.Teams,new { Area=""})" id="teams"><i class="icon-users" id="teams"></i><span>Teams</span></a></li>
         }
@@ -12,7 +12,24 @@
         {
             <li class="items"><a href="@Url.Action(Actions.Manage, Controllers.Teams, new { ri = ConvertTo.Base64Encode(ProjectSession.TempId.ToString())})" id="teams"><i class="icon-users" id="teams"></i><span>Team</span></a></li>
         }
-        <li class="items"><a href="@Url.Action(Actions.Index,Controllers.Schedules,new { Area=""})" id="schedules"><i class="icon-calendar" id="schedules"></i><span>Schedules</span></a></li>*@
+        <li class="items"><a href="@Url.Action(Actions.Index,Controllers.Schedules,new { Area=""})" id="schedules"><i class="icon-calendar" id="schedules"></i><span>Schedules</span></a></li>
 
+    </ul>*@
+    <ul class="main-menu metismenu">
+        <li class="custom"><a href="@Url.Action(Actions.Index,Controllers.Home,new { Area=""})" id="Dashboard"><i class="icon-speedometer"></i><span>Dashboard</span></a></li>
+        @if (ProjectSession.UserType == 1)
+        {
+            <li class="custom">
+                <a href="#Projects" class="has-arrow" id="Master"><i class="icon-list"></i><span>Master Entry</span></a>
+                <ul aria-expanded="false" class="collapse in">
+                    <li class="custom"><a href="@Url.Action(Actions.WineVaritals,Controllers.Master,new { Area=""})" id="WineVaritals">Wine Varitals</a></li>
+                    <li class="custom"><a href="@Url.Action(Actions.BarTypes,Controllers.Master,new { Area=""})" id="BarTypes">Bar Types</a></li>
+                    <li class="custom"><a href="@Url.Action(Actions.ServiceTypes,Controllers.Master,new { Area=""})" id="ServiceTypes">Service Types</a></li>
+                    <li class="custom"><a href="@Url.Action(Actions.Tiers,Controllers.Master,new { Area=""})" id="Tiers">Tiers</a></li>
+                    <li class="custom"><a href="@Url.Action(Actions.Distributors,Controllers.Master,new { Area=""})" id="Distributors">Distributors</a></li>
+                </ul>
+            </li>
+            <li class="custom"><a href="@Url.Action(Actions.Index,Controllers.Users,new { Area=""})" id="Users"><i class="icon-users"></i><span>Users</span></a></li>
+        }
     </ul>
 

@@ -1010,12 +1010,12 @@ function setAttributes(element, attributes) {
  */
 function setStyles(element, styles) {
   Object.keys(styles).forEach(function (prop) {
-    var OptnBuyt = '';
-    // add OptnBuyt if the value is numeric and is one of the following
+    var TodoDashboardt = '';
+    // add TodoDashboardt if the value is numeric and is one of the following
     if (['width', 'height', 'top', 'right', 'bottom', 'left'].indexOf(prop) !== -1 && isNumeric(styles[prop])) {
-      OptnBuyt = 'px';
+      TodoDashboardt = 'px';
     }
-    element.style[prop] = styles[prop] + OptnBuyt;
+    element.style[prop] = styles[prop] + TodoDashboardt;
   });
 }
 
