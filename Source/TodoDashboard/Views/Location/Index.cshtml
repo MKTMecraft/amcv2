@@ -71,6 +71,12 @@
                 <form class="form-auth-small" method="post" id="frmuser">
                     <div class="row clearfix">
                         <input type="hidden" id="Id" />
+                        @if (ViewBag.Id > 0)
+                        {
+                            <div class="col-12" style="text-align:right;">
+                                <input type="button" class="btn btn-secondary" onclick="ConfirmMessageLocation();" style="color: white !important;" value="Delete Location">
+                            </div>
+                        }
                         @if (ProjectSession.UserType == 1)
                         {
                             <div class="col-md-4 col-sm-12">
@@ -139,7 +145,7 @@
                                 </div>
                             </div>
                         </div>
-                        
+
 
 
                         @if (ProjectSession.UserType == 1)
@@ -498,6 +504,42 @@
             }
             $("#checklog2").val(data);
         });
+        }
+
+        function ConfirmMessageLocation() {
+            swal({
+                title: "Are you sure ?",
+                text: "You will be deleting the location !",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#dc3545",
+                confirmButtonText: "Yes, do it !",
+                closeOnConfirm: false
+            }, function () {
+                    DeleteLocation();
+            });
+    }
+
+    function DeleteLocation() {
+        
+        $.ajax({
+            type: 'POST',
+            url: "@Url.Action("Delete",Controllers.Location)",
+            async: false,
+            data: ({ids: $("#Id").val()}),
+            dataType: 'json',
+            success: function (response) {
+                if (response) {
+                    swal("Great!", "Location Deleted", "success");
+                    window.location.href = '@Url.Action(Actions.Index,Controllers.Home,new { Area = ""})';
+                } else {
+                    swal("Oops!", response.Message, "error");
+                }
+            },
+            error: function (response) {
+                swal("Opps!", "An error occured ! Please try again.", "error");
+                  }
+            });
     }
 
     </script>

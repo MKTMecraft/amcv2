@@ -1,4 +1,5 @@
 ﻿using DataTables.Mvc;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -48,6 +49,9 @@ namespace TodoDashboard.Controllers
         [ActionName(Actions.Index)]
         public ActionResult Index()
         {
+            ViewBag.LocationIds = JsonConvert.SerializeObject(GetValues("LocationIds"));
+            ViewBag.LocationName = JsonConvert.SerializeObject(GetValues("LocationName"));
+            ViewBag.WineName = JsonConvert.SerializeObject(GetValues("WineName"));
             ViewBag.States = BindDropDowns("states");
             ViewBag.ServiceTypes = BindDropDowns("servicetypes");
             ViewBag.BarTypes = BindDropDowns("bartypes");
@@ -216,6 +220,15 @@ namespace TodoDashboard.Controllers
                         items.Add(new SelectListItem() { Text = master.Name.ToString(), Value = Convert.ToString(master.Id) });
                     }
                 }
+                else if(action == "LocationIds")
+                {
+                    AbstractMasterLocations abstractMasterLocations = new MasterLocations();
+                    var model = abstractMasterLocationsService.MasterLocations_All(pageParam, "", abstractMasterLocations);
+                    foreach (var master in model.Values)
+                    {
+                        items.Add(new SelectListItem() { Text = master.LocationId.ToString(), Value = Convert.ToString(master.Id) });
+                    }
+                }
                 return items;
             }
             catch (Exception ex)
@@ -224,6 +237,42 @@ namespace TodoDashboard.Controllers
             }
         }
 
+        public List<string> GetValues(string action = "")
+        {
+            List<string> values = new List<string>();
+            PageParam pageParam = new PageParam();
+            pageParam.Offset = 0;
+            pageParam.Limit = 0;
+            if (action == "LocationIds")
+            {
+                AbstractMasterLocations abstractMasterLocations = new MasterLocations();
+                var model = abstractMasterLocationsService.MasterLocations_All(pageParam, "", abstractMasterLocations);
+                foreach (var master in model.Values)
+                {
+                    values.Add(master.LocationId.ToString());
+                }
+            }
+            else if (action == "LocationName")
+            {
+                AbstractMasterLocations abstractMasterLocations = new MasterLocations();
+                var model = abstractMasterLocationsService.MasterLocations_All(pageParam, "", abstractMasterLocations);
+                foreach (var master in model.Values)
+                {
+                    values.Add(master.LocationName.ToString());
+                }
+            }
+            else if (action == "WineName")
+            {
+                AbstractMasterWines abstractMasterWines = new MasterWines();
+                var model = abstractMasterWinesService.MasterWines_All(pageParam, "", abstractMasterWines);
+                foreach (var master in model.Values)
+                {
+                    values.Add(master.WineName.ToString());
+                }
+            }
+            
+            return values;
+        }
 
         public ActionResult AddDrink()
         {

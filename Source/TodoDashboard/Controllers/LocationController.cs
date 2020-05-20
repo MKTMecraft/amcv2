@@ -285,6 +285,31 @@ namespace TodoDashboard.Controllers
             con.Close();
         }
 
+        public JsonResult Delete(int ids)
+        {
+            string var_sql = "";
+            var_sql = "delete from MasterLocations where Id=" + ids;
+          
+            try
+            {
+                SqlConnection con = new SqlConnection(Configurations.ConnectionString);
+                con.Open();
+                SqlCommand cmd = new SqlCommand(var_sql, con);
+                cmd.ExecuteNonQuery();
+                con.Close();
+                var_sql = "delete from LocationWines where MasterLocationId=" + ids;
+                con.Open();
+                cmd = new SqlCommand(var_sql, con);
+                cmd.ExecuteNonQuery();
+                con.Close();
+                return Json(true, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(false, JsonRequestBehavior.AllowGet);
+            }
+        }
+
         #endregion
         public class LocationWines
         {
